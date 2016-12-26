@@ -9,7 +9,7 @@ def number?(input)
 end
 
 def integer?(input)
-  /^\d+$/.match(input) 
+  /^\d+$/.match(input)
 end
 
 def float?(input)
@@ -17,16 +17,16 @@ def float?(input)
 end
 
 def operation_to_message(op)
-  case op
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  word = case op
+         when '1' then 'Adding'
+         when '2' then 'Subtracting'
+         when '3' then 'Multiplying'
+         when '4' then 'Dividing'
+         end
+
+  x = 'A random line of code'
+
+  word
 end
 
 prompt("Welcome to Calculator! Enter your name:")
