@@ -21,10 +21,10 @@ end
 
 def operation_to_message(op)
   word = case op
-         when '1' then 'Adding'
-         when '2' then 'Subtracting'
-         when '3' then 'Multiplying'
-         when '4' then 'Dividing'
+         when '1' then MESSAGES['de']['adding']
+         when '2' then MESSAGES['de']['subtracting']
+         when '3' then MESSAGES['de']['multiplying']
+         when '4' then MESSAGES['de']['dividing']
          end
 
   word
@@ -32,26 +32,26 @@ end
 
 def first_loop
   loop do
-    prompt(MESSAGES['first_number'])
+    prompt(MESSAGES['de']['first_number'])
     number1 = Kernel.gets().chomp()
 
     if number?(number1)
       return number1
     else
-      prompt(MESSAGES['invalid_number'])
+      prompt(MESSAGES['de']['invalid_number'])
     end
   end
 end
 
 def second_loop
   loop do
-    prompt(MESSAGES['second_number'])
+    prompt(MESSAGES['de']['second_number'])
     number2 = Kernel.gets().chomp()
 
     if number?(number2)
       return number2
     else
-      prompt(MESSAGES['invalid_number'])
+      prompt(MESSAGES['de']['invalid_number'])
     end
   end
 end
@@ -63,19 +63,19 @@ def operator_loop
     if %w(1 2 3 4).include?(operator)
       return operator
     else
-      prompt(MESSAGES['choose_option'])
+      prompt(MESSAGES['de']['choose_option'])
     end
   end
 end
 
-prompt(MESSAGES['welcome'])
+prompt(MESSAGES['de']['welcome'])
 
 name = ''
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?()
-    prompt(MESSAGES['valid_name'])
+    prompt(MESSAGES['de']['valid_name'])
   else
     break
   end
@@ -91,7 +91,7 @@ loop do # main loop
   number2 = second_loop()
 
   operator_prompt = <<-MSG
-    What operation would you like to perform?
+  What operation would you like to perform?
       1) add
       2) subtract
       3) multiply
@@ -114,9 +114,9 @@ loop do # main loop
 
   prompt("The result is #{result}")
 
-  prompt(MESSAGES['other_calculation'])
+  prompt(MESSAGES['de']['other_calculation'])
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
 end
 
-prompt(MESSAGES['thank_you'])
+prompt(MESSAGES['de']['thank_you'])
