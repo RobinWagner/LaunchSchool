@@ -33,7 +33,7 @@ def first_loop
     number1 = Kernel.gets().chomp()
 
     if number?(number1)
-      break
+      return number1
     else
       prompt("Hmm... that doesn't look like a valid number")
     end
@@ -46,7 +46,7 @@ def second_loop
     number2 = Kernel.gets().chomp()
 
     if number?(number2)
-      break
+      return number2
     else
       prompt("Hmm... that doesn't look like a valid number")
     end
@@ -58,7 +58,7 @@ def operator_loop
     operator = Kernel.gets().chomp()
 
     if %w(1 2 3 4).include?(operator)
-      break
+      return operator
     else
       prompt("Must choose 1, 2, 3, or 4")
     end
@@ -82,10 +82,10 @@ prompt("Hi #{name}!")
 
 loop do # main loop
   number1 = ''
-  first_loop()
+  number1 = first_loop()
 
   number2 = ''
-  second_loop()
+  number2 = second_loop()
 
   operator_prompt = <<-MSG
     What operation would you like to perform?
@@ -98,7 +98,7 @@ loop do # main loop
   prompt(operator_prompt)
 
   operator = ''
-  operator_loop
+  operator = operator_loop
 
   prompt("#{operation_to_message(operator)} the two numbers...")
 
