@@ -1,5 +1,8 @@
 # Calculator
 
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
@@ -29,26 +32,26 @@ end
 
 def first_loop
   loop do
-    prompt("What's the first number?")
+    prompt(MESSAGES['first_number'])
     number1 = Kernel.gets().chomp()
 
     if number?(number1)
       return number1
     else
-      prompt("Hmm... that doesn't look like a valid number")
+      prompt(MESSAGES['invalid_number'])
     end
   end
 end
 
 def second_loop
   loop do
-    prompt("What's the second number?")
+    prompt(MESSAGES['second_number'])
     number2 = Kernel.gets().chomp()
 
     if number?(number2)
       return number2
     else
-      prompt("Hmm... that doesn't look like a valid number")
+      prompt(MESSAGES['invalid_number'])
     end
   end
 end
@@ -60,19 +63,19 @@ def operator_loop
     if %w(1 2 3 4).include?(operator)
       return operator
     else
-      prompt("Must choose 1, 2, 3, or 4")
+      prompt(MESSAGES['choose_option'])
     end
   end
 end
 
-prompt("Welcome to Calculator! Enter your name:")
+prompt(MESSAGES['welcome'])
 
 name = ''
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?()
-    prompt("Make sure to use a valid name.")
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
@@ -111,9 +114,9 @@ loop do # main loop
 
   prompt("The result is #{result}")
 
-  prompt("Do you want to perform another calculation? (Y to calculate again)")
+  prompt(MESSAGES['other_calculation'])
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
 end
 
-prompt("Thank you for using the calculator. Good bye!")
+prompt(MESSAGES['thank_you'])
