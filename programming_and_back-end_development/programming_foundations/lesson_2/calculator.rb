@@ -24,9 +24,45 @@ def operation_to_message(op)
          when '4' then 'Dividing'
          end
 
-  x = 'A random line of code'
-
   word
+end
+
+def first_loop
+  loop do
+    prompt("What's the first number?")
+    number1 = Kernel.gets().chomp()
+
+    if number?(number1)
+      break
+    else
+      prompt("Hmm... that doesn't look like a valid number")
+    end
+  end
+end
+
+def second_loop
+  loop do
+    prompt("What's the second number?")
+    number2 = Kernel.gets().chomp()
+
+    if number?(number2)
+      break
+    else
+      prompt("Hmm... that doesn't look like a valid number")
+    end
+  end
+end
+
+def operator_loop
+  loop do
+    operator = Kernel.gets().chomp()
+
+    if %w(1 2 3 4).include?(operator)
+      break
+    else
+      prompt("Must choose 1, 2, 3, or 4")
+    end
+  end
 end
 
 prompt("Welcome to Calculator! Enter your name:")
@@ -46,28 +82,10 @@ prompt("Hi #{name}!")
 
 loop do # main loop
   number1 = ''
-  loop do
-    prompt("What's the first number?")
-    number1 = Kernel.gets().chomp()
-
-    if number?(number1)
-      break
-    else
-      prompt("Hmm... that doesn't look like a valid number")
-    end
-  end
+  first_loop()
 
   number2 = ''
-  loop do
-    prompt("What's the second number?")
-    number2 = Kernel.gets().chomp()
-
-    if number?(number2)
-      break
-    else
-      prompt("Hmm... that doesn't look like a valid number")
-    end
-  end
+  second_loop()
 
   operator_prompt = <<-MSG
     What operation would you like to perform?
@@ -80,27 +98,15 @@ loop do # main loop
   prompt(operator_prompt)
 
   operator = ''
-  loop do
-    operator = Kernel.gets().chomp()
-
-    if %w(1 2 3 4).include?(operator)
-      break
-    else
-      prompt("Must choose 1, 2, 3, or 4")
-    end
-  end
+  operator_loop
 
   prompt("#{operation_to_message(operator)} the two numbers...")
 
   result = case operator
-           when '1'
-             number1.to_f() + number2.to_f()
-           when '2'
-             number1.to_f() - number2.to_f()
-           when '3'
-             number1.to_f() * number2.to_f()
-           when '4'
-             number1.to_f() / number2.to_f()
+           when '1' then number1.to_f() + number2.to_f()
+           when '2' then number1.to_f() - number2.to_f()
+           when '3' then number1.to_f() * number2.to_f()
+           when '4' then number1.to_f() / number2.to_f()
            end
 
   prompt("The result is #{result}")
