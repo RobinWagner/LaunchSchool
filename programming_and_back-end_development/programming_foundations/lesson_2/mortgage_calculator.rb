@@ -13,6 +13,7 @@ loan_duration_month = gets.chomp.to_f * 12
 monthly_interest_rate = annual_percentage_rate / 12
 
 # Calculate monthly payment
-monthly_payment = loan_amount * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_duration_month)))
+monthly_payment = loan_amount * (monthly_interest_rate /
+  (1 - (1 + monthly_interest_rate)**-loan_duration_month))
 
 puts "The monthly payment is $ #{monthly_payment.round(2)} a month."
