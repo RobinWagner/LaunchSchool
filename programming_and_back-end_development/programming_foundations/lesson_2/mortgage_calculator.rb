@@ -16,7 +16,7 @@ def float?(input)
   /\d/.match(input) && /^\d*\.?\d*$/.match(input)
 end
 
-puts "Welcome to the mortgage calculator."
+prompt("Welcome to the mortgage calculator.")
 
 loan_amount = ''
 loop do
@@ -27,7 +27,7 @@ loop do
     loan_amount = loan_amount.to_f
     break
   else
-    prompt("Invalid input.")
+    prompt("That doesn't look like a valid number.")
   end
 end
 
@@ -40,7 +40,7 @@ loop do
     annual_percentage_rate = annual_percentage_rate.to_f / 100
     break
   else
-    prompt("Invalid input.")
+    prompt("That doesn't look like a valid number.")
   end
 end
 
@@ -53,7 +53,7 @@ loop do
     loan_duration_month = loan_duration_month.to_f * 12
     break
   else
-    prompt("Invalid input.")
+    prompt("That doesn't look like a valid number.")
   end
 end
 
@@ -63,4 +63,4 @@ monthly_interest_rate = annual_percentage_rate / 12
 monthly_payment = loan_amount * (monthly_interest_rate /
   (1 - (1 + monthly_interest_rate)**-loan_duration_month))
 
-puts "The monthly payment is $ #{monthly_payment.round(2)} a month."
+prompt("The monthly payment is $ #{monthly_payment.round(2)}.")
