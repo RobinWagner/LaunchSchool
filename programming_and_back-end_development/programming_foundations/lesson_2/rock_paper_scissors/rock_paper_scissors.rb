@@ -1,6 +1,6 @@
 # Rock Paper Scissors
 
-VALID_CHOICES = %w(rock paper scissors lizard spock)
+VALID_CHOICES = { 'r' => 'rock', 'p' => 'paper', 'sc' => 'scissors', 'l' => 'lizard', 'sp' => 'spock' }
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -32,19 +32,20 @@ end
 loop do
   choice = ''
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
+    prompt("Choose one: ")
+    VALID_CHOICES.each {|abb, name| prompt "'#{abb}' for '#{name}'" }
     choice = Kernel.gets().chomp()
 
-    if VALID_CHOICES.include?(choice)
+    if VALID_CHOICES.has_key?(choice)
       break
     else
       prompt("That's not a valid choice.")
     end
   end
 
-  computer_choice = VALID_CHOICES.sample()
+  computer_choice = VALID_CHOICES.values.sample()
 
-  prompt("You chose: #{choice}; Computer chose: #{computer_choice}")
+  prompt("You chose: #{VALID_CHOICES[choice]}; Computer chose: #{computer_choice}")
 
   display_results(choice, computer_choice)
 
