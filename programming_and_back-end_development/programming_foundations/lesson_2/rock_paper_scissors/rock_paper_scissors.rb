@@ -1,3 +1,5 @@
+# Rock Paper Scissors
+
 VALID_CHOICES = %w(rock paper scissors)
 
 def prompt(message)
