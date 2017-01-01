@@ -3,18 +3,20 @@
 VALID_CHOICES = { 'r' => 'rock', 'p' => 'paper', 'sc' => 'scissors',
                   'l' => 'lizard', 'sp' => 'spock' }
 
-scores = [0, 0]
+WINNING_CONDITIONS = {
+  'rock' => ['scissors', 'lizard'],
+  'paper' => ['rock', 'spock'],
+  'scissors' => ['paper', 'lizard'],
+  'lizard' => ['spock', 'paper'],
+  'spock' => ['scissors', 'rock']
+}
 
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
 def win?(first, second)
-  ((first == 'rock') && (second == 'scissors' || second == 'lizard')) ||
-    ((first == 'paper') && (second == 'rock' || second == 'spock')) ||
-    ((first == 'scissors') && (second == 'paper' || second == 'lizard')) ||
-    ((first == 'lizard') && (second == 'spock' || second == 'paper')) ||
-    ((first == 'spock') && (second == 'scissors' || second == 'rock'))
+  WINNING_CONDITIONS[first].include?(second)
 end
 
 def display_results(player, computer)
@@ -45,11 +47,12 @@ def display_winner_game(scores)
 end
 
 loop do
+  scores = [0, 0]
   loop do
     choice = ''
     loop do
       prompt("Choose one: ")
-      VALID_CHOICES.each { |abb, name| prompt "'#{abb}' for '#{name}'" }
+      VALID_CHOICES.each { |abb, name| prompt("'#{abb}' for '#{name}'") }
       choice = Kernel.gets().chomp()
 
       if VALID_CHOICES.key?(choice)
@@ -59,14 +62,13 @@ loop do
       end
     end
 
-    comp_choice = VALID_CHOICES.values.sample()
+    c_choice = VALID_CHOICES.values.sample()
 
-    prompt("You chose: #{VALID_CHOICES[choice]}; Computer chose: #{comp_choice}")
+    prompt("You chose: #{VALID_CHOICES[choice]}; Computer chose: #{c_choice}")
 
-    scores = calculate_score(VALID_CHOICES[choice], comp_choice, scores)
-    display_results(VALID_CHOICES[choice], comp_choice)
-    prompt("Your score: #{scores[0]}")
-    prompt("Computer score: #{scores[1]}")
+    scores = calculate_score(VALID_CHOICES[choice], c_choice, scores)
+    display_results(VALID_CHOICES[choice], c_choice)
+    prompt("Your score: #{scores[0]}; Computer score: #{scores[1]}")
     prompt("---")
     break if scores.max > 4
   end
