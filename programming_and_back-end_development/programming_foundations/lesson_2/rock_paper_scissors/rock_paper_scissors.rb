@@ -4,11 +4,11 @@ VALID_CHOICES = { 'r' => 'rock', 'p' => 'paper', 'sc' => 'scissors',
                   'l' => 'lizard', 'sp' => 'spock' }
 
 WINNING_CONDITIONS = {
-  'rock' => ['scissors', 'lizard'],
-  'paper' => ['rock', 'spock'],
-  'scissors' => ['paper', 'lizard'],
-  'lizard' => ['spock', 'paper'],
-  'spock' => ['scissors', 'rock']
+  'rock' => %w(scissors lizard),
+  'paper' => %w(rock spock),
+  'scissors' => %w(paper lizard),
+  'lizard' => %w(spock paper),
+  'spock' => %w(scissors rock)
 }
 
 def prompt(message)
@@ -55,11 +55,7 @@ loop do
       VALID_CHOICES.each { |abb, name| prompt("'#{abb}' for '#{name}'") }
       choice = Kernel.gets().chomp()
 
-      if VALID_CHOICES.key?(choice)
-        break
-      else
-        prompt("That's not a valid choice.")
-      end
+      VALID_CHOICES.key?(choice) ? break : prompt("That's not a valid choice.")
     end
 
     c_choice = VALID_CHOICES.values.sample()
