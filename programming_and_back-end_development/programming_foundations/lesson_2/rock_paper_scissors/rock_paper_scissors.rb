@@ -11,7 +11,7 @@ WINNING_CONDITIONS = {
   'spock' => %w(scissors rock)
 }
 
-WINNING_SCORE = 4
+WINNING_SCORE = 5
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -72,7 +72,7 @@ loop do
     prompt("Your score: #{scores[:player]}; "\
            "Computer score: #{scores[:computer]}")
     prompt("---")
-    break if scores.values.max > WINNING_SCORE
+    break if scores.values.max == WINNING_SCORE
   end
   display_winner_game(scores)
   prompt("------------------------------")
