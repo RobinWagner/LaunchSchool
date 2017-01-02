@@ -19,3 +19,8 @@
 # ? before something is used in a ternary expression to show the 'if' branch
 # ? after something is used to show a Boolean method
 # !! before something is used to display the Boolean value of the expression
+
+# Question 3
+
+advice = "Few things in life are as important as house training your pet dinosaur."
+advice.gsub!('important', 'urgent')
