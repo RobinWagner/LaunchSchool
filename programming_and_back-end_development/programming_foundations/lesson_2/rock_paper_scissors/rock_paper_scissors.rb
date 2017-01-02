@@ -42,11 +42,11 @@ end
 
 def display_winner_game(scores)
   if scores[:player] > scores[:computer]
-    prompt("You won #{scores[:player]} \
-to #{scores[:computer]}! Congratulations!")
+    prompt("You won #{scores[:player]} "\
+           "to #{scores[:computer]}! Congratulations!")
   else
-    prompt("You lost #{scores[:player]} to #{scores[:computer]}. \
-Give it another try!")
+    prompt("You lost #{scores[:player]} to #{scores[:computer]}. "\
+           "Give it another try!")
   end
 end
 
@@ -64,13 +64,13 @@ loop do
 
     computer_choice = VALID_CHOICES.values.sample()
 
-    prompt("You chose: #{VALID_CHOICES[choice]}; \
-Computer chose: #{computer_choice}")
+    prompt("You chose: #{VALID_CHOICES[choice]}; "\
+           "Computer chose: #{computer_choice}")
 
     update_score(VALID_CHOICES[choice], computer_choice, scores)
     display_results(VALID_CHOICES[choice], computer_choice)
-    prompt("Your score: #{scores[:player]}; \
-Computer score: #{scores[:computer]}")
+    prompt("Your score: #{scores[:player]}; "\
+           "Computer score: #{scores[:computer]}")
     prompt("---")
     break if scores.values.max > WINNING_SCORE
   end
