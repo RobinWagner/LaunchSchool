@@ -11,6 +11,8 @@ WINNING_CONDITIONS = {
   'spock' => %w(scissors rock)
 }
 
+WINNING_SCORE = 4
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
@@ -29,25 +31,27 @@ def display_results(player, computer)
   end
 end
 
-def calculate_score(player, computer, score)
+def update_score(player, computer, scores)
   if win?(player, computer)
-    score[0] += 1
+    scores[:player] += 1
   elsif win?(computer, player)
-    score[1] += 1
+    scores[:computer] += 1
   end
-  score
+  scores
 end
 
 def display_winner_game(scores)
-  if scores[0] > scores[1]
-    prompt("You won #{scores[0]} to #{scores[1]}! Congratulations!")
+  if scores[:player] > scores[:computer]
+    prompt("You won #{scores[:player]} \
+to #{scores[:computer]}! Congratulations!")
   else
-    prompt("You lost #{scores[0]} to #{scores[1]}. Give it another try!")
+    prompt("You lost #{scores[:player]} to #{scores[:computer]}. \
+Give it another try!")
   end
 end
 
 loop do
-  scores = [0, 0]
+  scores = { player: 0, computer: 0 }
   loop do
     choice = ''
     loop do
@@ -58,15 +62,17 @@ loop do
       VALID_CHOICES.key?(choice) ? break : prompt("That's not a valid choice.")
     end
 
-    c_choice = VALID_CHOICES.values.sample()
+    computer_choice = VALID_CHOICES.values.sample()
 
-    prompt("You chose: #{VALID_CHOICES[choice]}; Computer chose: #{c_choice}")
+    prompt("You chose: #{VALID_CHOICES[choice]}; \
+Computer chose: #{computer_choice}")
 
-    scores = calculate_score(VALID_CHOICES[choice], c_choice, scores)
-    display_results(VALID_CHOICES[choice], c_choice)
-    prompt("Your score: #{scores[0]}; Computer score: #{scores[1]}")
+    update_score(VALID_CHOICES[choice], computer_choice, scores)
+    display_results(VALID_CHOICES[choice], computer_choice)
+    prompt("Your score: #{scores[:player]}; \
+Computer score: #{scores[:computer]}")
     prompt("---")
-    break if scores.max > 4
+    break if scores.values.max > WINNING_SCORE
   end
   display_winner_game(scores)
   prompt("------------------------------")
