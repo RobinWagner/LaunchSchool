@@ -60,3 +60,16 @@ advice.include?('Dino')
 
 flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
 flintstones.index { |name| name[0, 2] == "Be"}
+
+# Question 9
+
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+
+flintstones.map! do |name|
+  name[0, 3]
+end
+
+# Alternative:
+flintstones.map! do |name|
+  name[0..2]
+end
