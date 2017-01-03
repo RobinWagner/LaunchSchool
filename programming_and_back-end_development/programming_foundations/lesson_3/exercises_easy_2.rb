@@ -17,3 +17,11 @@ ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marily
 
 sum = 0
 ages.values.each { |age| sum += age }
+
+# Question 3
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 402, "Eddie" => 10 }
+ages.keep_if { |_, age| age < 100 }
+
+# Alternative:
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 402, "Eddie" => 10 }
+ages.reject! { |_, age| age >= 100 }
