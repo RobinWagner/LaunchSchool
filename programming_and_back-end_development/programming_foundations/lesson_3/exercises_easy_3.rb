@@ -36,3 +36,8 @@ statement.scan('t').count
 
 # Alternative:
 statement.count('t')
+
+# Question 6
+
+title = "Flintstone Family Members"
+title.center(40)
