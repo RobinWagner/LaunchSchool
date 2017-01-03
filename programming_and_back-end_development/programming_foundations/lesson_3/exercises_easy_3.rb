@@ -20,3 +20,11 @@ flintstones.push("Dino").push("Hoppy")
 # Alternatives:
 flintstones.concat(%w(Dino Hoppy))
 flintstones.insert(-1, "Dino", "Hoppy")
+
+# Question 4
+
+advice = "Few things in life are as important as house training your pet dinosaur."
+advice.slice!(0, advice.index('house'))
+
+# Alternative:
+advice.slice!(/Few.*as/)
