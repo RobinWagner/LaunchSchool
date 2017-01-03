@@ -24,3 +24,8 @@
 
 advice = "Few things in life are as important as house training your pet dinosaur."
 advice.gsub!('important', 'urgent')
+
+# Question 4
+
+# delete_at(1) deletes the array value at index 1
+# delete(1) searches and deletes the value 1 in the array
