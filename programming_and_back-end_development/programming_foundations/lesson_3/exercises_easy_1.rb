@@ -58,3 +58,17 @@ flintstones.flatten!
 
 flintstones = { "Fred" => 0, "Wilma" => 1, "Barney" => 2, "Betty" => 3, "BamBam" => 4, "Pebbles" => 5 }
 flintstones.assoc("Barney")
+
+# Question 10
+
+flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "BamBam"]
+flintstones = flintstones.map { |element| [element, flintstones.index(element)] }.to_h
+
+# Alternative:
+
+flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "BamBam"]
+
+flintstones_hash = {}
+flintstones.each_with_index do |name, index|
+  flintstones_hash[name] = index
+end
