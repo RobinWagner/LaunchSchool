@@ -34,3 +34,10 @@ munsters_description.capitalize!
 munsters_description.swapcase!
 munsters_description.downcase!
 munsters_description.upcase!
+
+# Question 5
+
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10 }
+additional_ages = { "Marilyn" => 22, "Spot" => 237 }
+
+ages.merge!(additional_ages)
