@@ -28,3 +28,11 @@ advice.slice!(0, advice.index('house'))
 
 # Alternative:
 advice.slice!(/Few.*as/)
+
+# Question 5
+
+statement = "The Flintstones Rock!"
+statement.scan('t').count
+
+# Alternative:
+statement.count('t')
