@@ -47,3 +47,9 @@ famous_words.prepend("Four score and ")
 # Question 7
 
 # => 42
+
+# Question 8
+
+flintstones = ["Fred", "Wilma", ["Barney", "Betty"], ["BamBam", "Pebbles"]]
+
+flintstones.flatten!
