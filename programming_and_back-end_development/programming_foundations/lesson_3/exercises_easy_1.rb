@@ -34,3 +34,12 @@ advice.gsub!('important', 'urgent')
 
 (10..100).cover?(42)
 # Alternative: 42.between?(10, 100)
+
+# Question 6
+
+famous_words = "seven years ago..."
+
+"Four score and " + famous_words
+"Four score and #{famous_words}"
+"Four score and " << famous_words
+famous_words.prepend("Four score and ")
