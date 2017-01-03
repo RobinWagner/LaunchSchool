@@ -19,6 +19,7 @@ sum = 0
 ages.values.each { |age| sum += age }
 
 # Question 3
+
 ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 402, "Eddie" => 10 }
 ages.keep_if { |_, age| age < 100 }
 
@@ -46,3 +47,11 @@ ages.merge!(additional_ages)
 
 ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marilyn" => 22, "Spot" => 237 }
 ages.values.min
+
+# Question 7
+
+advice = "Few things in life are as important as house training your pet dinosaur."
+advice.match('Dino')
+
+# Alternative:
+advice.include?('Dino')
