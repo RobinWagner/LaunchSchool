@@ -29,3 +29,8 @@ advice.gsub!('important', 'urgent')
 
 # delete_at(1) deletes the array value at index 1
 # delete(1) searches and deletes the value 1 in the array
+
+# Question 5
+
+(10..100).cover?(42)
+# Alternative: 42.between?(10, 100)
