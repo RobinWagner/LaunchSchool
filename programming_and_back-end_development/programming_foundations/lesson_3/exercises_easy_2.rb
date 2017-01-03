@@ -55,3 +55,8 @@ advice.match('Dino')
 
 # Alternative:
 advice.include?('Dino')
+
+# Question 8
+
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+flintstones.index { |name| name[0, 2] == "Be"}
