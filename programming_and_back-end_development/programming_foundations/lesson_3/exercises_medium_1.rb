@@ -27,3 +27,12 @@ statement.each do |element|
     hash[element] = 1
   end
 end
+
+# Question 3
+
+puts "the value of 40 + 2 is " + (40 + 2)
+
+# Cannot concatenate string and integer (no implicit conversion)
+# Fixes:
+puts "the value of 40 + 2 is " + (40 + 2).to_s
+puts "the value of 40 + 2 is #{40 + 2}"
