@@ -89,3 +89,9 @@ puts "My array looks like this now: #{my_array}"
 # => My array looks like this now: ["pumpkins"]
 # The << operator works now on the string and modifies the original string.
 # The = operator works only with the method's scope and works only on a copy.
+
+# Question 5
+
+def color_valid(color)
+  color == "blue" || color == "green"
+end
