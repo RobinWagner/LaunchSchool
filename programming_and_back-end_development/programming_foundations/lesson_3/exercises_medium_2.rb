@@ -47,3 +47,7 @@ sentence.split(/\W/).reverse!.join(' ') + '.'
 # Question 5
 
 # Output is 34 (method has separate scope)
+
+# Question 6
+
+# Data is changed since operation was directly executed on the hash.
