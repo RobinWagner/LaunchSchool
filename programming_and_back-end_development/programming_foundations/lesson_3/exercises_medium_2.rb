@@ -42,4 +42,8 @@ puts "My array looks like this now: #{my_array}"
 # Question 4
 
 sentence = "Humpty Dumpty sat on a wall."
-sentence.split(/\W/).reverse!.join(' ') + '!'
+sentence.split(/\W/).reverse!.join(' ') + '.'
+
+# Question 5
+
+# Output is 34 (method has separate scope)
