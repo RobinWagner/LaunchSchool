@@ -78,3 +78,24 @@ end
 # The << method is destructive and modifies the caller.
 # The + method is not destructive.
 # Therefore, the second method (rolling_buffer2) is likely to be preferred.
+
+# Question 7
+
+limit = 15
+
+def fib(first_num, second_num)
+  while second_num < limit
+    sum = first_num + second_num
+    first_num = second_num
+    second_num = sum
+  end
+  sum
+end
+
+result = fib(0, 1)
+puts "result is #{result}"
+
+# The limit variable is a local variable and not accessible in the method scope.
+# To solve this the limit variable could either be defined as a parameter and
+# passed as an argument to the method or limit variable could be changed to a
+# constant or global variable.
