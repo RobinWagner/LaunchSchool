@@ -72,3 +72,9 @@ end
 
 # Bonus 2 - Purpose of the second-to-last line
 # Return the divisors array (return would be nil without this)
+
+# Question 6
+
+# The << method is destructive and modifies the caller.
+# The + method is not destructive.
+# Therefore, the second method (rolling_buffer2) is likely to be preferred.
