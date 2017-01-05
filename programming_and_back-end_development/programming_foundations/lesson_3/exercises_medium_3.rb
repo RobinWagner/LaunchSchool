@@ -51,3 +51,22 @@
 # b_outer is forty two with an id of: 2152753560 BEFORE and: 2152753560 AFTER the method call.
 # c_outer is [42] with an id of: 2152753540 BEFORE and: 2152753540 AFTER the method call.
 # d_outer is 42 with an id of: 85 BEFORE and: 85 AFTER the method call.
+
+# Question 3
+
+def tricky_method(a_string_param, an_array_param)
+  a_string_param += "rutabaga"
+  an_array_param << "rutabaga"
+end
+
+my_string = "pumpkins"
+my_array = ["pumpkins"]
+tricky_method(my_string, my_array)
+
+puts "My string looks like this now: #{my_string}"
+puts "My array looks like this now: #{my_array}"
+
+# => My string looks like this now: pumpkins
+# => My array looks like this now: ["pumpkins", "rutabaga"]
+# The + operator does not mutate the caller (only works on copy / creates new string object)
+# The << operator does mutate the caller and changes the original array
