@@ -70,3 +70,22 @@ puts "My array looks like this now: #{my_array}"
 # => My array looks like this now: ["pumpkins", "rutabaga"]
 # The + operator does not mutate the caller (only works on copy / creates new string object)
 # The << operator does mutate the caller and changes the original array
+
+# Question 4
+
+def tricky_method_two(a_string_param, an_array_param)
+  a_string_param << 'rutabaga'
+  an_array_param = ['pumpkins', 'rutabaga']
+end
+
+my_string = "pumpkins"
+my_array = ["pumpkins"]
+tricky_method_two(my_string, my_array)
+
+puts "My string looks like this now: #{my_string}"
+puts "My array looks like this now: #{my_array}"
+
+# => My string looks like this now: pumpkinsrutabaga
+# => My array looks like this now: ["pumpkins"]
+# The << operator works now on the string and modifies the original string.
+# The = operator works only with the method's scope and works only on a copy.
