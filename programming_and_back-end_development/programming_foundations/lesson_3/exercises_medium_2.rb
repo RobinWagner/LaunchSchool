@@ -36,7 +36,7 @@ my_string = "pumpkins"
 my_array = ["pumpkins"]
 my_string, my_array = tricky_method(my_string, my_array)
 
-puts "My string looks like this now: #{my_string}"
+ "My string looks like this now: #{my_string}"
 puts "My array looks like this now: #{my_array}"
 
 # Question 4
@@ -51,3 +51,7 @@ sentence.split(/\W/).reverse!.join(' ') + '.'
 # Question 6
 
 # Data is changed since operation was directly executed on the hash.
+
+# Question 7
+
+# => 'paper'
