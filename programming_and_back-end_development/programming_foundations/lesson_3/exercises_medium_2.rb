@@ -55,3 +55,7 @@ sentence.split(/\W/).reverse!.join(' ') + '.'
 # Question 7
 
 # => 'paper'
+
+# Question 8
+
+# => 'no'
