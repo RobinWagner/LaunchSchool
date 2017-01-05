@@ -104,6 +104,6 @@ puts "result is #{result}"
 
 words = "the flintstones rock"
 
-def titelize!(words)
+def titelize(words)
   words.split.map { |word| word.capitalize }.join(' ')
 end
