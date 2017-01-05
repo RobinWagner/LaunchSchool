@@ -66,3 +66,9 @@ def factors(number)
   end
   divisors
 end
+
+# Bonus 1 - Purpose of number % dividend == 0
+# Make sure that number can be evenly divided by dividend (integer)
+
+# Bonus 2 - Purpose of the second-to-last line
+# Return the divisors array (return would be nil without this)
