@@ -99,3 +99,11 @@ puts "result is #{result}"
 # To solve this the limit variable could either be defined as a parameter and
 # passed as an argument to the method or limit variable could be changed to a
 # constant or global variable.
+
+# Question 8
+
+words = "the flintstones rock"
+
+def titelize!(words)
+  words.split.map { |word| word.capitalize }.join(' ')
+end
