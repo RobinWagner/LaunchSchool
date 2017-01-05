@@ -54,3 +54,15 @@ numbers.each do |number|
 end
 
 # => Output: 1, 2 (numbers is [1,2])
+
+# Question 5
+
+def factors(number)
+  dividend = number
+  divisors = []
+  while dividend > 0
+    divisors << number / dividend if number % dividend == 0
+    dividend -= 1
+  end
+  divisors
+end
