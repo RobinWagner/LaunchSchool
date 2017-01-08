@@ -92,16 +92,14 @@ def someone_won?(brd)
   !!detect_winner(brd)
 end
 
-def joinor(array, op=', ', connect='or')
-  if array.size == 1
-    "#{array[0]}"
+def joinor(arr, delimiter=', ', word='or')
+  case arr.size
+  when 0 then ''
+  when 1 then arr.first
+  when 2 then arr.join(" #{word} ")
   else
-    last_entry = array.pop
-    if array.size > 1
-      array.join(op) + op + "#{connect} #{last_entry}"
-    else
-      array.join(op) + " #{connect} #{last_entry}"
-    end
+    arr[-1] = "#{word} #{arr.last}"
+    arr.join(delimiter)
   end
 end
 
