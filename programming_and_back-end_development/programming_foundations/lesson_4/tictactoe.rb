@@ -23,14 +23,17 @@ INITIAL_MARKER = ' '.freeze
 PLAYER_MARKER = 'X'.freeze
 COMPUTER_MARKER = 'O'.freeze
 
+REQUIRED_WINS = 5
+
 def prompt(msg)
   puts "=> #{msg}"
 end
 
 # rubocop:disable Metrics/AbcSize
-def display_board(brd)
+def display_board(brd, score)
   system 'clear'
   puts "You are #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
+  puts "Player score: #{score[:player]}. Computer score: #{score[:computer]}."
   puts ""
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
@@ -103,27 +106,47 @@ def joinor(arr, delimiter=', ', word='or')
   end
 end
 
-loop do
-  board = initialize_board
-
-  loop do
-    display_board(board)
-
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-  end
-
-  display_board(board)
-
-  if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
+def increase_win_count(detect_winner, score)
+  if detect_winner == 'Player'
+    score[:player] += 1
   else
-    prompt "It's a tie!"
+    score[:computer] += 1
   end
+end
 
+# score = { player: 0, computer: 0 }
+
+loop do
+  score = { player: 0, computer: 0 }
+  loop do
+    board = initialize_board
+
+    loop do
+      display_board(board, score)
+
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
+
+    display_board(board, score)
+
+    if someone_won?(board)
+      increase_win_count(detect_winner(board), score)
+      prompt "#{detect_winner(board)} won!"
+      prompt "Player score: #{score[:player]}; Computer score: #{score[:computer]}"
+    else
+      prompt "It's a tie!"
+    end
+    break if score.values.max == REQUIRED_WINS
+  end
+  if score[:player] > score[:computer]
+    prompt "You won #{score[:player]} to #{score[:computer]}! Great job!"
+  else
+    prompt "You lost #{score[:player]} to #{score[:computer]}. Try again!"
+  end
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
