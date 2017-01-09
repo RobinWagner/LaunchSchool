@@ -11,7 +11,7 @@ COMPUTER_MARKER = 'O'.freeze
 REQUIRED_WINS = 5
 
 # Set choose to either 'player', 'computer' or 'choose'
-CHOOSE = 'computer'
+CHOOSE = 'choose'
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -47,9 +47,9 @@ end
 def choose_first_mover
   answer = ''
   loop do
-    prompt "Choose who should go first: Computer ('c') or player ('p')"
-    answer = gets.chomp.downcase
-    break if answer == 'c' || answer == 'p'
+    prompt "Choose who should go first: Computer ('Computer') or player ('Player')"
+    answer = gets.chomp.capitalize
+    break if answer == 'Computer' || answer == 'Player'
     prompt "Sorry, that's not a valid choice"
   end
   answer
@@ -141,33 +141,34 @@ def increase_win_count(detect_winner, score)
   end
 end
 
+def place_piece!(brd, player)
+  if player == 'Player'
+    player_places_piece!(brd)
+  elsif player == 'Computer'
+    computer_places_piece!(brd)
+  end
+end
+
+def alternate_player(player)
+  player == 'Computer' ? 'Player' : 'Computer'
+end
+
 loop do
   score = { player: 0, computer: 0 }
   loop do
     board = initialize_board
 
-    if CHOOSE == 'choose'
-      first_mover = choose_first_mover
+    case CHOOSE
+      when 'choose' then current_player = choose_first_mover
+      when 'player' then current_player = 'Player'
+      when 'computer' then current_player = 'Computer'
     end
 
     loop do
       display_board(board, score)
-
-      if CHOOSE == 'player' || (CHOOSE == 'choose' && first_mover == 'p')
-        player_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-
-        computer_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-      else
-        computer_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-
-        display_board(board, score)
-
-        player_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-      end
+      place_piece!(board, current_player)
+      current_player = alternate_player(current_player)
+      break if someone_won?(board) || board_full?(board)
     end
 
     display_board(board, score)
