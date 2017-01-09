@@ -85,6 +85,10 @@ def computer_places_piece!(brd)
     end
   end
 
+  if !square && brd[5] == INITIAL_MARKER
+    square = 5
+  end
+
   if !square
     square = empty_squares(brd).sample
   end
