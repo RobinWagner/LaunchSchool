@@ -11,7 +11,7 @@ COMPUTER_MARKER = 'O'.freeze
 REQUIRED_WINS = 5
 
 # Set choose to either 'player', 'computer' or 'choose'
-CHOOSE = 'choose'
+CHOOSE = 'choose'.freeze
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -22,8 +22,7 @@ def display_board(brd, score)
   system 'clear'
   puts "You are #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts "Player score: #{score[:player]}. Computer score: #{score[:computer]}."
-  puts ""
-  puts "     |     |"
+  puts "\n     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
   puts "     |     |"
   puts "-----+-----+-----"
@@ -33,8 +32,7 @@ def display_board(brd, score)
   puts "-----+-----+-----"
   puts "     |     |"
   puts "  #{brd[7]}  |  #{brd[8]}  |  #{brd[9]}"
-  puts "     |     |"
-  puts ""
+  puts "     |     |\n "
 end
 # rubocop:enable Metrics/AbcSize
 
@@ -47,12 +45,12 @@ end
 def choose_first_mover
   answer = ''
   loop do
-    prompt "Choose who should go first: Computer ('Computer') or player ('Player')"
-    answer = gets.chomp.capitalize
-    break if answer == 'Computer' || answer == 'Player'
+    prompt "Choose who should go first: Computer ('c') or player ('p')"
+    answer = gets.chomp.downcase
+    break if answer == 'c' || answer == 'p'
     prompt "Sorry, that's not a valid choice"
   end
-  answer
+  answer == 'c' ? 'Computer' : 'Player'
 end
 
 def empty_squares(brd)
@@ -62,7 +60,7 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a position to place a piece: (#{joinor(empty_squares(brd))}):"
+    prompt "Choose a position to place piece: (#{joinor(empty_squares(brd))}):"
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry, that's not a valid choice."
@@ -71,35 +69,31 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  square = nil
-  WINNING_LINES.each do |line|
-    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
-    break if square
-  end
+  square = find_optimal_square(brd, COMPUTER_MARKER)
 
   if !square
-    WINNING_LINES.each do |line|
-      square = find_at_risk_square(line, brd, PLAYER_MARKER)
-      break if square
-    end
+    square = find_optimal_square(brd, PLAYER_MARKER)
   end
 
-  if !square && brd[5] == INITIAL_MARKER
-    square = 5
-  end
+  square = 5 if !square && brd[5] == INITIAL_MARKER
 
-  if !square
-    square = empty_squares(brd).sample
-  end
+  square = empty_squares(brd).sample if !square
 
   brd[square] = COMPUTER_MARKER
+end
+
+def find_optimal_square(brd, current_player)
+  square = nil
+  WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, brd, current_player)
+    break if square
+  end
+  square
 end
 
 def find_at_risk_square(line, board, marker)
   if board.values_at(*line).count(marker) == 2
     board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
-  else
-    nil
   end
 end
 
@@ -153,16 +147,31 @@ def alternate_player(player)
   player == 'Computer' ? 'Player' : 'Computer'
 end
 
+def set_current_player
+  case CHOOSE
+  when 'choose' then choose_first_mover
+  when 'player' then 'Player'
+  when 'computer' then 'Computer'
+  end
+end
+
+def determine_winner(board, score)
+  if someone_won?(board)
+    increase_win_count(detect_winner(board), score)
+    prompt "#{detect_winner(board)} won!"
+    prompt "Player score: #{score[:player]}; " \
+           "Computer score: #{score[:computer]}"
+  else
+    prompt "It's a tie!"
+  end
+end
+
 loop do
   score = { player: 0, computer: 0 }
   loop do
     board = initialize_board
 
-    case CHOOSE
-      when 'choose' then current_player = choose_first_mover
-      when 'player' then current_player = 'Player'
-      when 'computer' then current_player = 'Computer'
-    end
+    current_player = set_current_player
 
     loop do
       display_board(board, score)
@@ -173,13 +182,8 @@ loop do
 
     display_board(board, score)
 
-    if someone_won?(board)
-      increase_win_count(detect_winner(board), score)
-      prompt "#{detect_winner(board)} won!"
-      prompt "Player score: #{score[:player]}; Computer score: #{score[:computer]}"
-    else
-      prompt "It's a tie!"
-    end
+    determine_winner(board, score)
+
     break if score.values.max == REQUIRED_WINS
   end
   if score[:player] > score[:computer]
