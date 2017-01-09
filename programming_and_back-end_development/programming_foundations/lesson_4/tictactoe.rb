@@ -1,6 +1,4 @@
 
-require 'pry'
-
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # cols
                 [[1, 5, 9], [3, 5, 7]]              # diagonals
@@ -10,8 +8,8 @@ COMPUTER_MARKER = 'O'.freeze
 
 REQUIRED_WINS = 5
 
-# Set choose to either 'player', 'computer' or 'choose'
-CHOOSE = 'choose'.freeze
+# Set CHOOSE to either 'player', 'computer' or 'choose'
+CHOOSE = 'player'.freeze
 
 def prompt(msg)
   puts "=> #{msg}"
