@@ -74,13 +74,13 @@ end
 def computer_places_piece!(brd)
   square = nil
   WINNING_LINES.each do |line|
-    square = find_at_risk_square(line, brd, PLAYER_MARKER)
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
     break if square
   end
 
   if !square
     WINNING_LINES.each do |line|
-      square = find_at_risk_square(line, brd, COMPUTER_MARKER)
+      square = find_at_risk_square(line, brd, PLAYER_MARKER)
       break if square
     end
   end
