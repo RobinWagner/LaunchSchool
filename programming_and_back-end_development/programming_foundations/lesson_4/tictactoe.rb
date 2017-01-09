@@ -72,6 +72,13 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
+      square = line.select { |num| brd[num] == INITIAL_MARKER }
+      brd[square[0]] = COMPUTER_MARKER
+      return
+    end
+  end
   square = empty_squares(brd).sample
   brd[square] = COMPUTER_MARKER
 end
@@ -113,8 +120,6 @@ def increase_win_count(detect_winner, score)
     score[:computer] += 1
   end
 end
-
-# score = { player: 0, computer: 0 }
 
 loop do
   score = { player: 0, computer: 0 }
