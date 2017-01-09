@@ -1,18 +1,3 @@
-# Tic Tac Toe is a 2 player game on a 3x3 board. Each player takes a turn and
-# marks a square on the board. The first player to reach 3 squares in a row,
-# including diagonals wins. If all 9 squares are marked and no player has 3
-# squares in a row, then the game is a tie.
-
-# 1. Display the 3x3 board.
-# 2. Ask the user to mark a square.
-# 3. Computer marks a square.
-# 4. Display the updated board state.
-# 5. If winner, display winner.
-# 6. If board is full, display tie.
-# 7. If neither winner nor board is full, go to #2.
-# 8. Play again?
-# 9. If yes, go to #1
-# 10. Good bye!
 
 require 'pry'
 
@@ -24,6 +9,9 @@ PLAYER_MARKER = 'X'.freeze
 COMPUTER_MARKER = 'O'.freeze
 
 REQUIRED_WINS = 5
+
+# Set choose to either 'player', 'computer' or 'choose'
+CHOOSE = 'computer'
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -54,6 +42,17 @@ def initialize_board
   new_board = {}
   (1..9).each { |num| new_board[num] = INITIAL_MARKER }
   new_board
+end
+
+def choose_first_mover
+  answer = ''
+  loop do
+    prompt "Choose who should go first: Computer ('c') or player ('p')"
+    answer = gets.chomp.downcase
+    break if answer == 'c' || answer == 'p'
+    prompt "Sorry, that's not a valid choice"
+  end
+  answer
 end
 
 def empty_squares(brd)
@@ -147,14 +146,28 @@ loop do
   loop do
     board = initialize_board
 
+    if CHOOSE == 'choose'
+      first_mover = choose_first_mover
+    end
+
     loop do
       display_board(board, score)
 
-      player_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
+      if CHOOSE == 'player' || (CHOOSE == 'choose' && first_mover == 'p')
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
 
-      computer_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      else
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+
+        display_board(board, score)
+
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      end
     end
 
     display_board(board, score)
