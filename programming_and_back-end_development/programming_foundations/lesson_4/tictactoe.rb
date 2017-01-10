@@ -158,10 +158,12 @@ end
 def determine_winner(board, score)
   if someone_won?(board)
     increase_win_count(detect_winner(board), score)
+    display_board(board, score)
     prompt "#{detect_winner(board)} won!"
     prompt "Player score: #{score[:player]}; " \
            "Computer score: #{score[:computer]}"
   else
+    display_board(board, score)
     prompt "It's a tie!"
   end
   sleep(2)
