@@ -91,8 +91,9 @@ end
 
 def find_at_risk_square(line, board, marker)
   if board.values_at(*line).count(marker) == 2
-    board.select { |field, marker| line.include?(field) \
-      && marker == INITIAL_MARKER }.keys.first
+    board.select do |field, marker_position|
+      line.include?(field) && marker_position == INITIAL_MARKER
+    end.keys.first
   end
 end
 
@@ -166,6 +167,14 @@ def determine_winner(board, score)
   sleep(2)
 end
 
+def show_winner_game(score)
+  if score[:player] > score[:computer]
+    prompt "You won #{score[:player]} to #{score[:computer]}! Great job!"
+  else
+    prompt "You lost #{score[:player]} to #{score[:computer]}. Try again!"
+  end
+end
+
 loop do
   score = { player: 0, computer: 0 }
   loop do
@@ -186,11 +195,8 @@ loop do
 
     break if score.values.max == REQUIRED_WINS
   end
-  if score[:player] > score[:computer]
-    prompt "You won #{score[:player]} to #{score[:computer]}! Great job!"
-  else
-    prompt "You lost #{score[:player]} to #{score[:computer]}. Try again!"
-  end
+  show_winner_game(score)
+
   answer = ''
   loop do
     prompt "Play again? (Enter 'yes' or 'no')"
