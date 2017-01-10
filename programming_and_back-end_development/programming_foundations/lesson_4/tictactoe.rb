@@ -162,6 +162,7 @@ def determine_winner(board, score)
   else
     prompt "It's a tie!"
   end
+  sleep(3)
 end
 
 loop do
