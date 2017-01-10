@@ -189,8 +189,13 @@ loop do
   else
     prompt "You lost #{score[:player]} to #{score[:computer]}. Try again!"
   end
-  prompt "Play again? (y or n)"
-  answer = gets.chomp
+  answer = ''
+  loop do
+    prompt "Play again? (Enter 'yes' or 'no')"
+    answer = gets.chomp.downcase
+    break if answer == 'yes' || answer == 'no'
+    prompt "Sorry, that's not a valid choice"
+  end
   break unless answer.downcase.start_with?('y')
 end
 
