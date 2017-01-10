@@ -91,7 +91,8 @@ end
 
 def find_at_risk_square(line, board, marker)
   if board.values_at(*line).count(marker) == 2
-    board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
+    board.select { |field, marker| line.include?(field) \
+      && marker == INITIAL_MARKER }.keys.first
   end
 end
 
@@ -162,7 +163,7 @@ def determine_winner(board, score)
   else
     prompt "It's a tie!"
   end
-  sleep(3)
+  sleep(2)
 end
 
 loop do
