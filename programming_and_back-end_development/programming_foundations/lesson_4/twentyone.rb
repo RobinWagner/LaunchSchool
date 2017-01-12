@@ -52,11 +52,49 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def deal_player_cards
+  deal_card
+end
+
+def deal_card
+  deck.sample
+end
+
+def player_deal_or_stay
+  loop do
+    puts "hit or stay?"
+    answer = gets.chomp
+    break if answer == 'stay'
+  end
+end
+
+def total(cards)
+  values = cards.map { |card| card[1] }
+
+  sum = 0
+  values.each do |value|
+    if value == "A"
+      sum += 11
+    elsif value.to_i == 0
+      sum += 10
+    else
+      sum += value.to_i
+    end
+  end
+
+  # correct for Aces
+  value.select { |value| value == "A" }.count.times do
+    sum -= 10 if sum > 21
+  end
+
+  sum
+end
+
+
 loop do
   prompt "Welcome to Twenty-One!"
 
-  initialize_deck
-  deal_cards
+  total(cards)
 
   player_deal_or_stay
   dealer_turn
