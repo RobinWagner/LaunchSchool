@@ -38,34 +38,15 @@
 # 6. If dealer bust, player wins.
 # 7. Compare cards and declare winner.
 
-deck = [['H', '2'], ['H', '3'], ['H', '4'], ['H', '5'], ['H', '6'], ['H', '7'],
-        ['H', '8'], ['H', '9'], ['H', '10'], ['H', 'J'], ['H', 'Q'], ['H', 'K'],
-        ['H', 'A'], ['D', '2'], ['D', '3'], ['D', '4'], ['D', '5'], ['D', '6'],
-        ['D', '7'], ['D', '8'], ['D', '9'], ['D', '10'], ['D', 'J'], ['D', 'Q'],
-        ['D', 'K'], ['D', 'A'], ['C', '2'], ['C', '3'], ['C', '4'], ['C', '5'],
-        ['C', '6'], ['C', '7'], ['C', '8'], ['C', '9'], ['C', '10'], ['C', 'J'],
-        ['C', 'Q'], ['C', 'K'], ['C', 'A'], ['S', '2'], ['S', '3'], ['S', '4'],
-        ['S', '5'], ['S', '6'], ['S', '7'], ['S', '8'], ['S', '9'], ['S', '10'],
-        ['S', 'J'], ['S', 'Q'], ['S', 'K'], ['S', 'A']]
+SUITS = ['H', 'D', 'S', 'C']
+VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
 def prompt(message)
   puts "=> #{message}"
 end
 
-def deal_player_cards
-  deal_card
-end
-
-def deal_card
-  deck.sample
-end
-
-def player_deal_or_stay
-  loop do
-    puts "hit or stay?"
-    answer = gets.chomp
-    break if answer == 'stay'
-  end
+def initialize_deck
+  SUITS.product(VALUES).shuffle
 end
 
 def total(cards)
@@ -83,30 +64,135 @@ def total(cards)
   end
 
   # correct for Aces
-  value.select { |value| value == "A" }.count.times do
+  values.select { |value| value == "A" }.count.times do
     sum -= 10 if sum > 21
   end
-
   sum
 end
 
+def busted?(cards)
+  total(cards) > 21
+end
 
-loop do
-  prompt "Welcome to Twenty-One!"
+def detect_result(dealer_cards, player_cards)
+  player_total = total(player_cards)
+  dealer_total = total(dealer_cards)
 
-  total(cards)
+  if player_total > 21
+    :player_busted
+  elsif dealer_total > 21
+    :dealer_busted
+  elsif dealer_total < player_total
+    :player
+  elsif dealer_total > player_total
+    :dealer
+  else
+    :tie
+  end
+end
 
-  player_deal_or_stay
-  dealer_turn
+def display_result(dealer_cards, player_cards)
+  result = detect_result(dealer_cards, player_cards)
 
-  determine_winner
+  case result
+  when :player_busted
+    prompt "You busted! Dealer wins!"
+  when :dealer_busted
+    prompt "Dealer busted! You win!"
+  when :player
+    prompt "You win!"
+  when :dealer
+    prompt "Dealer wins!"
+  when :tie
+    prompt "It's a tie!"
+  end
+end
 
+def play_again?
   answer = ''
   loop do
-    prompt "Play again? (Enter 'yes' or 'no')"
+    puts "--------------"
+    prompt "Do you want to play again? ('yes' or 'no')"
     answer = gets.chomp.downcase
     break if answer == 'yes' || answer == 'no'
     prompt "Sorry, that's not a valid choice"
   end
-  break unless answer.downcase.start_with?('y')
+  answer == 'yes' ? true : false
 end
+
+loop do
+  prompt "Welcome to Twenty-One!"
+
+  # initialize vars
+  deck = initialize_deck
+  player_cards = []
+  dealer_cards = []
+
+  # initial deal
+  2.times do
+    player_cards << deck.pop
+    dealer_cards << deck.pop
+  end
+
+  prompt "Dealer has #{dealer_cards[0]} and ?"
+  prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total " \
+         "of #{total(player_cards)}."
+
+  # player turn
+  loop do
+    player_turn = nil
+    loop do
+      prompt "Would you like to 'hit' or 'stay'?"
+      player_turn = gets.chomp.downcase
+      break if ['hit', 'stay'].include?(player_turn)
+      prompt "Sorry, must enter 'hit' or 'stay'."
+    end
+
+    if player_turn == 'hit'
+      player_cards << deck.pop
+      prompt "You chose to hit!"
+      prompt "Your cards are now: #{player_cards}"
+      prompt "Your total is now: #{total(player_cards)}"
+    end
+
+    break if player_turn == 'stay' || busted?(player_cards)
+  end
+
+  if busted?(player_cards)
+    display_result(dealer_cards, player_cards)
+    play_again? ? next : break
+  else
+    prompt "You stayed at #{total(player_cards)}"
+  end
+
+  # dealer turn
+  prompt "Dealer turn..."
+
+  loop do
+    break if busted?(dealer_cards) || total(dealer_cards) >= 17
+
+    prompt "Dealer hits!"
+    dealer_cards << deck.pop
+    prompt "Dealer's cards are now: #{dealer_cards}"
+  end
+
+  if busted?(dealer_cards)
+    prompt "Dealer total is now: #{total(dealer_cards)}"
+    display_result(dealer_cards, player_cards)
+    play_again? ? next : break
+  else
+    prompt "Dealer stays at #{total(dealer_cards)}"
+  end
+
+  # both player and dealer stays - compare cards!
+  puts '============='
+  prompt "Dealer has #{dealer_cards}, for a total of: #{total(dealer_cards)}"
+  prompt "Player has #{player_cards}, for a total of: #{total(player_cards)}"
+  puts '============='
+
+  display_result(dealer_cards, player_cards)
+
+  break unless play_again?
+end
+
+prompt "Thank you for playing Twenty-One! Good bye!"
