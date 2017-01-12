@@ -38,8 +38,9 @@
 # 6. If dealer bust, player wins.
 # 7. Compare cards and declare winner.
 
-SUITS = ['H', 'D', 'S', 'C']
-VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+SUITS = ['H', 'D', 'S', 'C'].freeze
+VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J',
+          'Q', 'K', 'A'].freeze
 
 def prompt(message)
   puts "=> #{message}"
@@ -54,13 +55,13 @@ def total(cards)
 
   sum = 0
   values.each do |value|
-    if value == "A"
-      sum += 11
-    elsif value.to_i == 0
-      sum += 10
-    else
-      sum += value.to_i
-    end
+    sum += if value == 'A'
+             11
+           elsif value.to_i.zero?
+             10
+           else
+             value.to_i
+           end
   end
 
   # correct for Aces
@@ -120,25 +121,7 @@ def play_again?
   answer == 'yes' ? true : false
 end
 
-loop do
-  prompt "Welcome to Twenty-One!"
-
-  # initialize vars
-  deck = initialize_deck
-  player_cards = []
-  dealer_cards = []
-
-  # initial deal
-  2.times do
-    player_cards << deck.pop
-    dealer_cards << deck.pop
-  end
-
-  prompt "Dealer has #{dealer_cards[0]} and ?"
-  prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total " \
-         "of #{total(player_cards)}."
-
-  # player turn
+def player_makes_turn(player_cards, deck)
   loop do
     player_turn = nil
     loop do
@@ -150,22 +133,15 @@ loop do
 
     if player_turn == 'hit'
       player_cards << deck.pop
-      prompt "You chose to hit!"
-      prompt "Your cards are now: #{player_cards}"
+      prompt "You chose to hit!\n=> Your cards are now: #{player_cards}"
       prompt "Your total is now: #{total(player_cards)}"
     end
 
     break if player_turn == 'stay' || busted?(player_cards)
   end
+end
 
-  if busted?(player_cards)
-    display_result(dealer_cards, player_cards)
-    play_again? ? next : break
-  else
-    prompt "You stayed at #{total(player_cards)}"
-  end
-
-  # dealer turn
+def dealer_makes_turn(dealer_cards, deck)
   prompt "Dealer turn..."
 
   loop do
@@ -175,6 +151,53 @@ loop do
     dealer_cards << deck.pop
     prompt "Dealer's cards are now: #{dealer_cards}"
   end
+end
+
+def setup_initial_deal(player_cards, dealer_cards, deck)
+  2.times do
+    player_cards << deck.pop
+    dealer_cards << deck.pop
+  end
+end
+
+def show_inital_cards(dealer_cards, player_cards)
+  prompt "Dealer has #{dealer_cards[0]} and ?"
+  prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total " \
+         "of #{total(player_cards)}."
+end
+
+def show_updated_cards(dealer_cards, player_cards)
+  puts '============='
+  prompt "Dealer has #{dealer_cards}, for a total of: #{total(dealer_cards)}"
+  prompt "Player has #{player_cards}, for a total of: #{total(player_cards)}"
+  puts '============='
+end
+
+loop do
+  prompt "Welcome to Twenty-One!"
+
+  # initialize vars
+  deck = initialize_deck
+  player_cards = []
+  dealer_cards = []
+
+  # initial deal
+  setup_initial_deal(player_cards, dealer_cards, deck)
+
+  show_inital_cards(dealer_cards, player_cards)
+
+  # player turn
+  player_makes_turn(player_cards, deck)
+
+  if busted?(player_cards)
+    display_result(dealer_cards, player_cards)
+    play_again? ? next : break
+  else
+    prompt "You stayed at #{total(player_cards)}"
+  end
+
+  # dealer turn
+  dealer_makes_turn(dealer_cards, deck)
 
   if busted?(dealer_cards)
     prompt "Dealer total is now: #{total(dealer_cards)}"
@@ -185,10 +208,7 @@ loop do
   end
 
   # both player and dealer stays - compare cards!
-  puts '============='
-  prompt "Dealer has #{dealer_cards}, for a total of: #{total(dealer_cards)}"
-  prompt "Player has #{player_cards}, for a total of: #{total(player_cards)}"
-  puts '============='
+  show_updated_cards(dealer_cards, player_cards)
 
   display_result(dealer_cards, player_cards)
 
