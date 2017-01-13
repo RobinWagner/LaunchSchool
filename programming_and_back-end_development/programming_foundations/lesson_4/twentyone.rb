@@ -166,9 +166,9 @@ def show_inital_cards(dealer_cards, player_cards)
          "of #{total(player_cards)}."
 end
 
-def show_updated_cards(dealer_cards, player_cards)
+def show_updated_cards(dealer_cards, player_cards, dealer_total)
   puts '============='
-  prompt "Dealer has #{dealer_cards}, for a total of: #{total(dealer_cards)}"
+  prompt "Dealer has #{dealer_cards}, for a total of: #{dealer_total}"
   prompt "Player has #{player_cards}, for a total of: #{total(player_cards)}"
   puts '============='
 end
@@ -199,16 +199,17 @@ loop do
   # dealer turn
   dealers_turn(dealer_cards, deck)
 
+  dealer_total = total(dealer_cards)
   if busted?(dealer_cards)
-    prompt "Dealer total is now: #{total(dealer_cards)}"
+    prompt "Dealer total is now: #{dealer_total}"
     display_result(dealer_cards, player_cards)
     play_again? ? next : break
   else
-    prompt "Dealer stays at #{total(dealer_cards)}"
+    prompt "Dealer stays at #{dealer_total}"
   end
 
   # both player and dealer stays - compare cards!
-  show_updated_cards(dealer_cards, player_cards)
+  show_updated_cards(dealer_cards, player_cards, dealer_total)
 
   display_result(dealer_cards, player_cards)
 
