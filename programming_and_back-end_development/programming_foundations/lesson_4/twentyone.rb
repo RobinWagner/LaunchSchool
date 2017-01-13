@@ -121,7 +121,7 @@ def play_again?
   answer == 'yes' ? true : false
 end
 
-def player_makes_turn(player_cards, deck)
+def players_turn(player_cards, deck)
   loop do
     player_turn = nil
     loop do
@@ -141,7 +141,7 @@ def player_makes_turn(player_cards, deck)
   end
 end
 
-def dealer_makes_turn(dealer_cards, deck)
+def dealers_turn(dealer_cards, deck)
   prompt "Dealer turn..."
 
   loop do
@@ -187,7 +187,7 @@ loop do
   show_inital_cards(dealer_cards, player_cards)
 
   # player turn
-  player_makes_turn(player_cards, deck)
+  players_turn(player_cards, deck)
 
   if busted?(player_cards)
     display_result(dealer_cards, player_cards)
@@ -197,7 +197,7 @@ loop do
   end
 
   # dealer turn
-  dealer_makes_turn(dealer_cards, deck)
+  dealers_turn(dealer_cards, deck)
 
   if busted?(dealer_cards)
     prompt "Dealer total is now: #{total(dealer_cards)}"
