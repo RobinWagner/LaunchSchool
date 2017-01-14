@@ -82,19 +82,19 @@ def play_again?
   answer = ''
   loop do
     puts "--------------"
-    prompt "Do you want to play again? ('yes' or 'no')"
+    prompt "Do you want to play again? ((y)es or (n)o)"
     answer = gets.chomp.downcase
-    break if answer == 'yes' || answer == 'no'
+    break if answer == 'yes' || answer == 'y' || answer == 'no' || answer == 'n'
     prompt "Sorry, that's not a valid choice"
   end
-  answer == 'yes' ? true : false
+  answer == 'yes' || answer == 'y' ? true : false
 end
 
 def players_turn(player_cards, deck)
   loop do
     player_turn = nil
     loop do
-      prompt "Would you like to '(h)it' or '(s)tay'?"
+      prompt "Would you like to (h)it or (s)tay?"
       player_turn = gets.chomp.downcase
       break if ['h', 's', 'hit', 'stay'].include?(player_turn)
       prompt "Sorry, must enter (h)it or (s)tay."
