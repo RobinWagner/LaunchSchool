@@ -1,4 +1,4 @@
-
+require 'pry'
 
 SUITS = %w(H D S C).freeze
 VALUES = %w(2 3 4 5 6 7 8 9 10 J Q K A).freeze
@@ -102,7 +102,9 @@ def players_turn(player_cards, deck)
 
     if player_turn == 'hit'
       player_cards << deck.pop
-      prompt "You chose to hit!\n=> Your cards are now: #{player_cards}"
+      prompt "You chose to hit!\n=> Your cards are now: \n" \
+             "#{player_cards.map { |card| "'" +
+             display_card_name(card) + "' \n" }.join('')}"
       prompt "Your total is now: #{total(player_cards)}"
     end
 
@@ -118,7 +120,8 @@ def dealers_turn(dealer_cards, deck)
 
     prompt "Dealer hits!"
     dealer_cards << deck.pop
-    prompt "Dealer's cards are now: #{dealer_cards}"
+    prompt "Dealer's cards are now: \n#{dealer_cards. map { |card| "'" +
+            display_card_name(card) + "'\n" }.join('')}"
   end
 end
 
@@ -129,22 +132,51 @@ def setup_initial_deal(player_cards, dealer_cards, deck)
   end
 end
 
-def show_inital_cards(dealer_cards, player_cards)
-  prompt "Dealer has #{dealer_cards[0]} and ?"
-  prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total " \
-         "of #{total(player_cards)}."
+def display_card_name(card)
+  "#{display_value_name(card[1])} of #{display_suits_name(card[0])}"
+end
+
+def display_suits_name(card)
+  case card
+  when 'H' then 'Hearts'
+  when 'D' then 'Diamonds'
+  when 'S' then 'Suits'
+  when 'C' then 'Clubs'
+  end
+end
+
+def display_value_name(card)
+  case card
+  when 'J' then 'Jack'
+  when 'Q' then 'Queen'
+  when 'K' then 'King'
+  when 'A' then 'Ace'
+  else card
+  end
+end
+
+def show_initial_cards(dealer_cards, player_cards)
+  prompt "Dealer has '#{display_card_name(dealer_cards[0])}' and ?"
+  prompt "You have: '#{display_card_name(player_cards[0])}' and " \
+         "'#{display_card_name(player_cards[1])}', for a total of " \
+         "#{total(player_cards)}."
 end
 
 def show_updated_cards(dealer_cards, player_cards)
   puts '============='
-  prompt "Dealer has #{dealer_cards}, for a total of: #{total(dealer_cards)}"
-  prompt "Player has #{player_cards}, for a total of: #{total(player_cards)}"
+  prompt "Dealer has #{dealer_cards.map { |card| "'" +
+          display_card_name(card) + "'" }.join(', ')}, "\
+          "for a total of: #{total(dealer_cards)}"
+  prompt "Player has #{player_cards.map { |card| "'" +
+          display_card_name(card) + "'" }.join(', ')}, " \
+          "for a total of: #{total(player_cards)}"
   puts '============='
 end
 
 def show_winner(dealer_cards, player_cards, score)
   show_updated_cards(dealer_cards, player_cards)
   calculate_winner(dealer_cards, player_cards, score)
+  sleep(4)
 end
 
 def calculate_winner(dealer_cards, player_cards, score)
@@ -168,13 +200,19 @@ end
 
 def initialize_game(player_cards, dealer_cards, deck)
   setup_initial_deal(player_cards, dealer_cards, deck)
-  show_inital_cards(dealer_cards, player_cards)
+  show_initial_cards(dealer_cards, player_cards)
+end
+
+def clear_screen
+  system('clear') || system('cls')
 end
 
 loop do
+  clear_screen
   prompt "Welcome to Twenty-One!"
   score = { player: 0, dealer: 0 }
   loop do
+    clear_screen
     # initialize vars
     deck = initialize_deck
     player_cards = []
