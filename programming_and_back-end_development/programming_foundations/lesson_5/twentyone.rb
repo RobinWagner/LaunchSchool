@@ -96,11 +96,11 @@ def players_turn(player_cards, deck)
     loop do
       prompt "Would you like to 'hit' or 'stay'?"
       player_turn = gets.chomp.downcase
-      break if ['hit', 'stay'].include?(player_turn)
-      prompt "Sorry, must enter 'hit' or 'stay'."
+      break if ['h', 's', 'hit', 'stay'].include?(player_turn)
+      prompt "Sorry, must enter (h)it or (s)tay."
     end
 
-    if player_turn == 'hit'
+    if player_turn == 'h' || player_turn == 'hit'
       player_cards << deck.pop
       prompt "You chose to hit!\n=> Your cards are now: \n" \
              "#{player_cards.map { |card| "'" +
@@ -108,7 +108,8 @@ def players_turn(player_cards, deck)
       prompt "Your total is now: #{total(player_cards)}"
     end
 
-    break if player_turn == 'stay' || busted?(player_cards)
+    break if player_turn == 's' || player_turn == 'stay' ||
+             busted?(player_cards)
   end
 end
 
