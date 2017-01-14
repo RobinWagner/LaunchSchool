@@ -38,9 +38,14 @@
 # 6. If dealer bust, player wins.
 # 7. Compare cards and declare winner.
 
+
+require 'pry'
+
 SUITS = ['H', 'D', 'S', 'C'].freeze
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J',
           'Q', 'K', 'A'].freeze
+
+REQUIRED_WINS = 5
 
 def prompt(message)
   puts "=> #{message}"
@@ -92,7 +97,7 @@ def detect_result(dealer_cards, player_cards)
   end
 end
 
-def display_result(dealer_cards, player_cards)
+def display_result(dealer_cards, player_cards, score)
   result = detect_result(dealer_cards, player_cards)
 
   case result
@@ -107,6 +112,10 @@ def display_result(dealer_cards, player_cards)
   when :tie
     prompt "It's a tie!"
   end
+
+  prompt "Your score: #{score[:player]}. Dealer's score: #{score[:dealer]}."
+  puts '============='
+  puts '============='
 end
 
 def play_again?
@@ -171,48 +180,74 @@ def show_updated_cards(dealer_cards, player_cards)
   prompt "Dealer has #{dealer_cards}, for a total of: #{total(dealer_cards)}"
   prompt "Player has #{player_cards}, for a total of: #{total(player_cards)}"
   puts '============='
-  display_result(dealer_cards, player_cards)
+end
+
+def show_winner(dealer_cards, player_cards, score)
+  show_updated_cards(dealer_cards, player_cards)
+  calculate_winner(dealer_cards, player_cards, score)
+end
+
+def calculate_winner(dealer_cards, player_cards, score)
+  if detect_result(dealer_cards, player_cards) == :player ||
+     detect_result(dealer_cards, player_cards) == :dealer_busted
+    score[:player] += 1
+  elsif detect_result(dealer_cards, player_cards) == :dealer ||
+        detect_result(dealer_cards, player_cards) == :player_busted
+    score[:dealer] += 1
+  end
+  display_result(dealer_cards, player_cards, score)
 end
 
 loop do
   prompt "Welcome to Twenty-One!"
+  score = { player: 0, dealer: 0 }
+  loop do
 
-  # initialize vars
-  deck = initialize_deck
-  player_cards = []
-  dealer_cards = []
+    # initialize vars
+    deck = initialize_deck
+    player_cards = []
+    dealer_cards = []
 
-  # initial deal
-  setup_initial_deal(player_cards, dealer_cards, deck)
+    # initial deal
+    setup_initial_deal(player_cards, dealer_cards, deck)
 
-  show_inital_cards(dealer_cards, player_cards)
+    show_inital_cards(dealer_cards, player_cards)
 
-  # player turn
-  players_turn(player_cards, deck)
+    # player turn
+    players_turn(player_cards, deck)
 
-  if busted?(player_cards)
-    show_updated_cards(dealer_cards, player_cards)
-    play_again? ? next : break
-  else
-    prompt "You stayed at #{total(player_cards)}"
+    if busted?(player_cards)
+      show_winner(dealer_cards, player_cards, score)
+      score.values.max >= 5 ? break : next
+      # play_again? ? next : break
+    else
+      prompt "You stayed at #{total(player_cards)}"
+    end
+
+    # dealer turn
+    dealers_turn(dealer_cards, deck)
+
+    dealer_total = total(dealer_cards)
+    if busted?(dealer_cards)
+      prompt "Dealer total is now: #{dealer_total}"
+      show_winner(dealer_cards, player_cards, score)
+      score.values.max >= 5 ? break : next
+      # play_again? ? next : break
+    else
+      prompt "Dealer stays at #{dealer_total}"
+    end
+
+    # both player and dealer stays - compare cards!
+    show_winner(dealer_cards, player_cards, score)
+
+    break if score.values.max >= 5
   end
-
-  # dealer turn
-  dealers_turn(dealer_cards, deck)
-
-  dealer_total = total(dealer_cards)
-  if busted?(dealer_cards)
-    prompt "Dealer total is now: #{dealer_total}"
-    show_updated_cards(dealer_cards, player_cards)
-    play_again? ? next : break
+  if score[:player] > score[:dealer]
+    prompt "You won #{score[:player]} to #{score[:dealer]}! Congratulations!"
   else
-    prompt "Dealer stays at #{dealer_total}"
+    prompt "You lost #{score[:player]} to #{score[:dealer]}! Too bad :("
   end
-
-  # both player and dealer stays - compare cards!
-  show_updated_cards(dealer_cards, player_cards)
-
-  break unless play_again?
+  play_again? ? next : break
 end
 
 prompt "Thank you for playing Twenty-One! Good bye!"
