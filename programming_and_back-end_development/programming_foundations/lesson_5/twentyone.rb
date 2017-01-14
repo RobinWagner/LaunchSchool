@@ -1,4 +1,3 @@
-require 'pry'
 
 SUITS = %w(H D S C).freeze
 VALUES = %w(2 3 4 5 6 7 8 9 10 J Q K A).freeze
@@ -82,12 +81,12 @@ def play_again?
   answer = ''
   loop do
     puts "--------------"
-    prompt "Do you want to play again? ((y)es or (n)o)"
+    prompt "Do you want to play again? - (y)es or (n)o"
     answer = gets.chomp.downcase
-    break if answer == 'yes' || answer == 'y' || answer == 'no' || answer == 'n'
+    break if answer == 'y' || answer == 'n'
     prompt "Sorry, that's not a valid choice"
   end
-  answer == 'yes' || answer == 'y' ? true : false
+  answer == 'y' ? true : false
 end
 
 def players_turn(player_cards, deck)
@@ -96,21 +95,25 @@ def players_turn(player_cards, deck)
     loop do
       prompt "Would you like to (h)it or (s)tay?"
       player_turn = gets.chomp.downcase
-      break if ['h', 's', 'hit', 'stay'].include?(player_turn)
+      break if ['h', 's'].include?(player_turn)
       prompt "Sorry, must enter (h)it or (s)tay."
     end
 
-    if player_turn == 'h' || player_turn == 'hit'
+    if player_turn == 'h'
       player_cards << deck.pop
-      prompt "You chose to hit!\n=> Your cards are now: \n" \
-             "#{player_cards.map { |card| "'" +
-             display_card_name(card) + "' \n" }.join('')}"
-      prompt "Your total is now: #{total(player_cards)}"
+      show_player_cards(player_cards)
     end
 
-    break if player_turn == 's' || player_turn == 'stay' ||
-             busted?(player_cards)
+    break if player_turn == 's' || busted?(player_cards)
   end
+end
+
+def show_player_cards(player_cards)
+  prompt "You chose to hit!\n=> Your cards are now: \n" \
+         "#{player_cards.map do |card|
+              "'" + display_card_name(card) + "' \n"
+            end.join('')}"
+  prompt "Your total is now: #{total(player_cards)}"
 end
 
 def dealers_turn(dealer_cards, deck)
@@ -121,8 +124,10 @@ def dealers_turn(dealer_cards, deck)
 
     prompt "Dealer hits!"
     dealer_cards << deck.pop
-    prompt "Dealer's cards are now: \n#{dealer_cards. map { |card| "'" +
-            display_card_name(card) + "'\n" }.join('')}"
+    prompt "Dealer's cards are now: \n" \
+           "#{dealer_cards. map do |card|
+                "'" + display_card_name(card) + "'\n"
+              end.join('')}"
   end
 end
 
@@ -165,12 +170,14 @@ end
 
 def show_updated_cards(dealer_cards, player_cards)
   puts '============='
-  prompt "Dealer has #{dealer_cards.map { |card| "'" +
-          display_card_name(card) + "'" }.join(', ')}, "\
-          "for a total of: #{total(dealer_cards)}"
-  prompt "Player has #{player_cards.map { |card| "'" +
-          display_card_name(card) + "'" }.join(', ')}, " \
-          "for a total of: #{total(player_cards)}"
+  prompt "Dealer has " \
+         "#{dealer_cards.map do |card|
+              "'" + display_card_name(card) + "'"
+            end.join(', ')}, for a total of: #{total(dealer_cards)}"
+  prompt "Player has " \
+         "#{player_cards.map do |card|
+              "'" + display_card_name(card) + "'"
+            end.join(', ')}, for a total of: #{total(player_cards)}"
   puts '============='
 end
 
