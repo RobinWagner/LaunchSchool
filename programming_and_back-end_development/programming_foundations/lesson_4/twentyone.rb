@@ -1,16 +1,12 @@
 
-require 'pry'
 
-SUITS = ['H', 'D', 'S', 'C'].freeze
-VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J',
-          'Q', 'K', 'A'].freeze
+SUITS = %w(H D S C).freeze
+VALUES = %w(2 3 4 5 6 7 8 9 10 J Q K A).freeze
 
 MAXIMUM_WINNING_SCORE = 21
 DEALER_STOP_SCORE = 17
 
 REQUIRED_WINS = 5
-
-
 
 def prompt(message)
   puts "=> #{message}"
@@ -79,8 +75,7 @@ def display_result(dealer_cards, player_cards, score)
   end
 
   prompt "Your score: #{score[:player]}. Dealer's score: #{score[:dealer]}."
-  puts '============='
-  puts '============='
+  puts "=============\n============="
 end
 
 def play_again?
@@ -163,28 +158,37 @@ def calculate_winner(dealer_cards, player_cards, score)
   display_result(dealer_cards, player_cards, score)
 end
 
+def display_game_results(score)
+  if score[:player] > score[:dealer]
+    prompt "You won #{score[:player]} to #{score[:dealer]}! Congratulations!"
+  else
+    prompt "You lost #{score[:player]} to #{score[:dealer]}! Too bad :("
+  end
+end
+
+def initialize_game(player_cards, dealer_cards, deck)
+  setup_initial_deal(player_cards, dealer_cards, deck)
+  show_inital_cards(dealer_cards, player_cards)
+end
+
 loop do
   prompt "Welcome to Twenty-One!"
   score = { player: 0, dealer: 0 }
   loop do
-
     # initialize vars
     deck = initialize_deck
     player_cards = []
     dealer_cards = []
 
     # initial deal
-    setup_initial_deal(player_cards, dealer_cards, deck)
-
-    show_inital_cards(dealer_cards, player_cards)
+    initialize_game(player_cards, dealer_cards, deck)
 
     # player turn
     players_turn(player_cards, deck)
 
     if busted?(player_cards)
       show_winner(dealer_cards, player_cards, score)
-      score.values.max >= 5 ? break : next
-      # play_again? ? next : break
+      score.values.max >= REQUIRED_WINS ? break : next
     else
       prompt "You stayed at #{total(player_cards)}"
     end
@@ -196,8 +200,7 @@ loop do
     if busted?(dealer_cards)
       prompt "Dealer total is now: #{dealer_total}"
       show_winner(dealer_cards, player_cards, score)
-      score.values.max >= 5 ? break : next
-      # play_again? ? next : break
+      score.values.max >= REQUIRED_WINS ? break : next
     else
       prompt "Dealer stays at #{dealer_total}"
     end
@@ -205,13 +208,9 @@ loop do
     # both player and dealer stays - compare cards!
     show_winner(dealer_cards, player_cards, score)
 
-    break if score.values.max >= 5
+    break if score.values.max >= REQUIRED_WINS
   end
-  if score[:player] > score[:dealer]
-    prompt "You won #{score[:player]} to #{score[:dealer]}! Congratulations!"
-  else
-    prompt "You lost #{score[:player]} to #{score[:dealer]}! Too bad :("
-  end
+  display_game_results(score)
   play_again? ? next : break
 end
 
