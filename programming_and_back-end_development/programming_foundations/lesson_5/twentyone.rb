@@ -94,7 +94,7 @@ def players_turn(player_cards, deck)
   loop do
     player_turn = nil
     loop do
-      prompt "Would you like to 'hit' or 'stay'?"
+      prompt "Would you like to '(h)it' or '(s)tay'?"
       player_turn = gets.chomp.downcase
       break if ['h', 's', 'hit', 'stay'].include?(player_turn)
       prompt "Sorry, must enter (h)it or (s)tay."
@@ -208,6 +208,10 @@ def clear_screen
   system('clear') || system('cls')
 end
 
+def calculate_if_someone_won(score)
+  score.values.max >= REQUIRED_WINS
+end
+
 loop do
   clear_screen
   prompt "Welcome to Twenty-One!"
@@ -227,7 +231,7 @@ loop do
 
     if busted?(player_cards)
       show_winner(dealer_cards, player_cards, score)
-      score.values.max >= REQUIRED_WINS ? break : next
+      calculate_if_someone_won(score) ? break : next
     else
       prompt "You stayed at #{total(player_cards)}"
     end
@@ -239,7 +243,7 @@ loop do
     if busted?(dealer_cards)
       prompt "Dealer total is now: #{dealer_total}"
       show_winner(dealer_cards, player_cards, score)
-      score.values.max >= REQUIRED_WINS ? break : next
+      calculate_if_someone_won(score) ? break : next
     else
       prompt "Dealer stays at #{dealer_total}"
     end
@@ -247,7 +251,7 @@ loop do
     # both player and dealer stays - compare cards!
     show_winner(dealer_cards, player_cards, score)
 
-    break if score.values.max >= REQUIRED_WINS
+    break if calculate_if_someone_won(score)
   end
   display_game_results(score)
   play_again? ? next : break
