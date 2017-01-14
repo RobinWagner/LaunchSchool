@@ -171,6 +171,7 @@ def show_updated_cards(dealer_cards, player_cards)
   prompt "Dealer has #{dealer_cards}, for a total of: #{total(dealer_cards)}"
   prompt "Player has #{player_cards}, for a total of: #{total(player_cards)}"
   puts '============='
+  display_result(dealer_cards, player_cards)
 end
 
 loop do
@@ -191,7 +192,6 @@ loop do
 
   if busted?(player_cards)
     show_updated_cards(dealer_cards, player_cards)
-    display_result(dealer_cards, player_cards)
     play_again? ? next : break
   else
     prompt "You stayed at #{total(player_cards)}"
@@ -204,7 +204,6 @@ loop do
   if busted?(dealer_cards)
     prompt "Dealer total is now: #{dealer_total}"
     show_updated_cards(dealer_cards, player_cards)
-    display_result(dealer_cards, player_cards)
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_total}"
@@ -212,8 +211,6 @@ loop do
 
   # both player and dealer stays - compare cards!
   show_updated_cards(dealer_cards, player_cards)
-
-  display_result(dealer_cards, player_cards)
 
   break unless play_again?
 end
