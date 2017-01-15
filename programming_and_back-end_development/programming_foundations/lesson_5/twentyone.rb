@@ -86,7 +86,7 @@ def play_again?
     break if answer == 'y' || answer == 'n'
     prompt "Sorry, that's not a valid choice"
   end
-  answer == 'y' ? true : false
+  answer == 'y'
 end
 
 def players_turn(player_cards, deck)
@@ -170,15 +170,20 @@ end
 
 def show_updated_cards(dealer_cards, player_cards)
   puts '============='
-  prompt "Dealer has " \
-         "#{dealer_cards.map do |card|
-              "'" + display_card_name(card) + "'"
-            end.join(', ')}, for a total of: #{total(dealer_cards)}"
-  prompt "Player has " \
-         "#{player_cards.map do |card|
-              "'" + display_card_name(card) + "'"
-            end.join(', ')}, for a total of: #{total(player_cards)}"
+  display_total_cards(dealer_cards)
+  display_total_cards(player_cards)
   puts '============='
+end
+
+def display_total_cards(user_cards)
+  prompt "Dealer has #{list_card_names(user_cards)}, " \
+         "for a total of: #{total(user_cards)}"
+end
+
+def list_card_names(card_array)
+  card_array.map do |card|
+    "'#{display_card_name(card)}'"
+  end.join(', ')
 end
 
 def show_winner(dealer_cards, player_cards, score)
