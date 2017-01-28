@@ -1,5 +1,7 @@
-def random_age_between_20_200
-  Array(20..200).sample
-end
+age = Array(20..200).sample
+puts "Teddy is #{age} years old!"
 
-puts "Teddy is #{random_age_between_20_200} years old!"
+# Alternative
+
+age = rand(20..200)
+puts "Teddy is #{age} years old!"
