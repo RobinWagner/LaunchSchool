@@ -36,9 +36,9 @@
 print 'What is your name? '
 name = gets.chomp
 
-unless name.split('').last == '!'
-  puts "Hello #{name}."
-else
+if name[-1] == '!'
   name.chop!
   puts "HELLO #{name.upcase}. WHY ARE WE SCREAMING?"
+else
+  puts "Hello #{name}."
 end
