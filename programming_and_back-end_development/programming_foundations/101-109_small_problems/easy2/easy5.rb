@@ -34,7 +34,7 @@
 ## Greet user in all-caps (remove exclamation mark) and ask question
 
 print 'What is your name? '
-name = gets.chomp
+name = gets.chomp!
 
 if name[-1] == '!'
   name.chop!
