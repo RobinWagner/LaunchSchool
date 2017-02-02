@@ -9,6 +9,9 @@
 # What is your name? Bob!
 # => HELLO BOB. WHY ARE WE SCREAMING?
 
+# Edge case / assumptions:
+# Exclamation mark directly follows name (without spaces).
+# There is at most one exclamation mark at the end.
 
 # Steps:
 ## Ask for user's name
@@ -28,4 +31,14 @@
 # if user input has no exlamation mark at end:
 ## Greet user.
 # if user input has exclamation mark at end:
-## Greet user in all-caps and ask question
+## Greet user in all-caps (remove exclamation mark) and ask question
+
+print 'What is your name? '
+name = gets.chomp
+
+unless name.split('').last == '!'
+  puts "Hello #{name}."
+else
+  name.chop!
+  puts "HELLO #{name.upcase}. WHY ARE WE SCREAMING?"
+end
