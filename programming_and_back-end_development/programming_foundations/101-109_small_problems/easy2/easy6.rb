@@ -10,3 +10,9 @@ loop do
   puts count
   break if count >= 99
 end
+
+# Alternative 1
+
+for i in 1..99 do
+  puts i
+end
