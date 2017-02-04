@@ -3,3 +3,11 @@
 for number in 1..99 do
   puts number if number.even?
 end
+
+# Alternative:
+
+value = 1
+while value <= 99
+  puts value if value.even?
+  value += 1
+end
