@@ -11,3 +11,7 @@ while value <= 99
   puts value if value.even?
   value += 1
 end
+
+# Alternative 2:
+
+puts (1..99).select { |number| number.even? }
