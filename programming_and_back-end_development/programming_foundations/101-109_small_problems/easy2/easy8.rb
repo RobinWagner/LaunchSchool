@@ -4,23 +4,15 @@
 
 def compute_sum(number)
   count = number
-  while count > 1
-    count -= 1
-    number += count
-  end
+  (1..(number-1)).each { |n| number += n }
   number
 end
 
 def compute_product(number)
   count = number
-  while count > 1
-    count -= 1
-    number *= count
-  end
+  (1..(number-1)).each { |n| number *= n }
   number
 end
-
-total = 0
 
 puts ">> Please enter an integer greater than 0:"
 number = gets.chomp.to_i
