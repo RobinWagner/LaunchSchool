@@ -3,15 +3,15 @@
 # numbers between 1 and the entered integer.
 
 def compute_sum(number)
-  count = number
-  (1..(number-1)).each { |n| number += n }
-  number
+  total = 0
+  1.upto(number) { |n| total += n }
+  total
 end
 
 def compute_product(number)
-  count = number
-  (1..(number-1)).each { |n| number *= n }
-  number
+  total = 1
+  1.upto(number) { |n| total *= n }
+  total
 end
 
 puts ">> Please enter an integer greater than 0:"
