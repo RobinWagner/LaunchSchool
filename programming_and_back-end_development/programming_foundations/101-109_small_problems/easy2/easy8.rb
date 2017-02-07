@@ -3,15 +3,11 @@
 # numbers between 1 and the entered integer.
 
 def compute_sum(number)
-  total = 0
-  1.upto(number) { |n| total += n }
-  total
+  (1..number).inject(:+)
 end
 
 def compute_product(number)
-  total = 1
-  1.upto(number) { |n| total *= n }
-  total
+  (1..number).inject(:*)
 end
 
 puts ">> Please enter an integer greater than 0:"
