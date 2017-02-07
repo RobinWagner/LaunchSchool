@@ -25,3 +25,21 @@ elsif input == 'p'
 else
   puts "Invalid input"
 end
+
+
+# Alternative:
+
+puts ">> Please enter an integer greater than 0:"
+number = gets.chomp.to_i
+puts ">> Enter 's' to compute the sum, 'p' to compute the product."
+operator = gets.chomp
+
+result = if operator == 's'
+            (1..number).inject(:+)
+          elsif operator == 'p'
+            (1..number).inject(:*)
+          else
+            puts invalid input
+          end
+puts "The #{operator =='s' ? 'sum' : 'product'} of the integers between 1 and " +
+     "#{number} is #{result}."
