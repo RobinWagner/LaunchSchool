@@ -17,3 +17,8 @@ puts array1
 # The second each method call mutates some of the elements within array1.
 # The same elements are mutated also in array2 since the objects within both
 # arrays are the same.
+
+# Mutating element within arrays can become problematic when iterating over
+# the elements of an array which are changed. Since the data structure to
+# iterate over is modified while iterating the results can be unexpected.
+# To avoid this, don't mutate the objects you iterate over.
