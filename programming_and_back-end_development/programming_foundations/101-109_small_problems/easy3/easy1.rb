@@ -1,24 +1,23 @@
 result_array = []
 
-puts "==> Enter the 1st number:"
-number1 = gets.chomp.to_i
-result_array << number1
+def number_ending(num)
+  case num
+  when 1
+    "st"
+  when 2
+    "nd"
+  when 3
+    "rd"
+  else
+    "th"
+  end
+end
 
-puts "==> Enter the 2nd number:"
-number2 = gets.chomp.to_i
-result_array << number2
-
-puts "==> Enter the 3rd number:"
-number3 = gets.chomp.to_i
-result_array << number3
-
-puts "==> Enter the 4th number:"
-number4 = gets.chomp.to_i
-result_array << number4
-
-puts "==> Enter the 5th number:"
-number5 = gets.chomp.to_i
-result_array << number5
+5.times do |num|
+  puts "==> Enter the #{num+1}#{number_ending(num+1)} number:"
+  number = gets.chomp.to_i
+  result_array << number
+end
 
 puts "==> Enter the last number:"
 final_number = gets.chomp.to_i
