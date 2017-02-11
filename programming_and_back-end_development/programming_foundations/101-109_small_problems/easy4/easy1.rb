@@ -1,12 +1,9 @@
 def short_long_short(string1, string2)
   if string1.size > string2.size
-    first = string2
-    second = string1
+    string2 + string1 + string2
   else
-    first = string1
-    second = string2
+    string1 + string2 + string1
   end
-  first + second + first
 end
 
 p short_long_short('abc', 'defgh') == "abcdefghabc"
