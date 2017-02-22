@@ -12,6 +12,14 @@ def reverse(array)
   new_array
 end
 
+# Alternative solution:
+
+def reverse(array)
+  result_array = []
+  array.reverse_each { |element| result_array << element }
+  result_array
+end
+
 # Test cases:
 
 p reverse([1,2,3,4]) == [4,3,2,1]
