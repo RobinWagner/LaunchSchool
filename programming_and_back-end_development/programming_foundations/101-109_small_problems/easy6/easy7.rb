@@ -2,11 +2,7 @@ def halvsies(array)
   first_half = []
   second_half = []
   result = []
-  if array.size % 2 == 0
-    array_half_size = array.size / 2 - 1
-  else
-    array_half_size = array.size / 2
-  end
+  array.size % 2 == 0 ? array_half_size = array.size / 2 - 1 : array_half_size = array.size / 2
   for n in 0..array_half_size do
       first_half << array[n]
   end
@@ -16,6 +12,8 @@ def halvsies(array)
   result << first_half
   result << second_half
 end
+
+# Test cases:
 
 p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
 p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
