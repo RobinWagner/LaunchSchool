@@ -3,6 +3,11 @@ def include?(array, search_value)
   false
 end
 
+# Alternative solution:
+
+def include?(array, value)
+  !!array.find_index(value)
+end
 
 # Test cases:
 
