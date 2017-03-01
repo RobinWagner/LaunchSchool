@@ -11,6 +11,12 @@ def word_cap(words)
   words_array.join(' ')
 end
 
+# Alternative solution 2:
+
+def word_cap(words)
+  words.split.map(&:capitalize).join(' ')
+end
+
 # Test cases
 
 p word_cap('four score and seven') == 'Four Score And Seven'
