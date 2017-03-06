@@ -1,8 +1,10 @@
 def staggered_case(string)
-  staggered = string.split('').map.with_index do |char, index|
-    index.even? ? char.upcase : char.downcase
+  marker = -1
+  staggered = string.split('').map do |char|
+    marker += 1 if ('a'..'z').to_a.include?(char.downcase)
+    marker.even? ? char.upcase : char.downcase
   end
-  staggered.join('')
+  staggered.join
 end
 
 # Test cases:
