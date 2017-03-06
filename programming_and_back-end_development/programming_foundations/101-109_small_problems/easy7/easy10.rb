@@ -1,6 +1,5 @@
 def penultimate(words)
-  array = words.split(' ')
-  array[-2]
+  words.split(' ')[-2]
 end
 
 p penultimate('last word') == 'last'
