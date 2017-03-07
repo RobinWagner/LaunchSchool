@@ -1,15 +1,17 @@
 def fizzbuzz(num_1, num_2)
+  result = []
   for n in num_1..num_2 do
     if n % 3 == 0 && n % 5 == 0
-      puts "FizzBuzz"
+      result << "FizzBuzz"
     elsif n % 3 == 0
-      puts "Fizz"
+      result << "Fizz"
     elsif n % 5 == 0
-      puts "Buzz"
+      result << "Buzz"
     else
-      puts n
+      result << "#{n}"
     end
   end
+  puts result.join(', ')
 end
 
 # Alternative solution:
