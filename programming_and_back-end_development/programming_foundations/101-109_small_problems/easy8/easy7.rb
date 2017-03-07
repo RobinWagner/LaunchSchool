@@ -6,6 +6,16 @@ def repeater(string)
   result
 end
 
+# Alternative solution:
+def repeater(string)
+  result = ''
+  string.each_char do |char|
+    result << char << char
+  end
+  result
+end
+
+# Test cases:
 p repeater('Hello') == "HHeelllloo"
 p repeater("Good job!") == "GGoooodd  jjoobb!!"
 p repeater('') == ''
