@@ -1,7 +1,5 @@
 def word_lengths(words)
-  words.split(' ').map do |word|
-    "#{word} #{word.length}"
-  end
+  words.split(' ').map { |word| "#{word} #{word.length}" }
 end
 
 # Test cases:
