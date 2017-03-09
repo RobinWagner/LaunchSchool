@@ -9,12 +9,23 @@ def twice(number)
       number * 2
     end
   else
-    if string_num[0, string_num.size / 2] == string_num[string_num.size / 2, string_num.size / 2.0]
+    if string_num[0, string_num.size / 2] == string_num[string_num.size / 2, string_num.size / 2]
       number
     else
       number * 2
     end
   end
+end
+
+# Alternative:
+def twice(number)
+  string_number = number.to_s
+  center = string_number.size / 2
+  left_side = center.zero? ? '' : string_number[0..center - 1]
+  right_side = string_number[center..-1]
+
+  return number if left_side == right_side
+  return number * 2
 end
 
 # Test cases:
