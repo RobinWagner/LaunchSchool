@@ -2,6 +2,20 @@ def sum_square_difference(n)
   (1..n).inject(:+)**2 - ((1..n).map { |a| a**2 }).inject(:+)
 end
 
+# Alternative solution:
+def sum_square_difference(n)
+  sum = 0
+  sum_of_squares = 0
+
+  1.upto(n) do |value|
+    sum += value
+    sum_of_squares += value**2
+  end
+
+  sum**2 - sum_of_squares
+end
+
+# Test cases:
 p sum_square_difference(3) == 22
    # -> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
 p sum_square_difference(10) == 2640
