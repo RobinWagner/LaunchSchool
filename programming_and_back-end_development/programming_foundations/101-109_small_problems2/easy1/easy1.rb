@@ -2,4 +2,11 @@ def repeat(string, number)
   number.times { puts string }
 end
 
+# Alternative:
+def repeat(string, number)
+  number.times do
+    puts string
+  end
+end
+
 repeat('Hello', 3)
