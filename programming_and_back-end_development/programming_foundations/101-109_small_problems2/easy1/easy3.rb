@@ -13,6 +13,11 @@ def digit_list(number)
   digits
 end
 
+# Idiomatic ruby solution:
+def digit_list(number)
+  number.to_s.chars.map(&:to_i)
+end
+
 # Test cases:
 puts digit_list(12345) == [1, 2, 3, 4, 5]
 puts digit_list(7) == [7]
