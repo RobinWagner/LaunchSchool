@@ -16,4 +16,17 @@ def count_occurrences(vehicles)
   result
 end
 
+# Alternative 2:
+def count_occurrences(array)
+  occurrences = {}
+
+  array.each do |element|
+    occurrences[element] = array.count(element)
+  end
+
+  occurrences.each do |element, count|
+    puts "#{element} => #{count}"
+  end
+end
+
 p count_occurrences(vehicles)
