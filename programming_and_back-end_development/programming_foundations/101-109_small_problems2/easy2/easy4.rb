@@ -1,7 +1,7 @@
-print "What is your age? "
+print 'What is your age? '
 age = gets.chomp.to_i
 
-print "At what age would you like to retire? "
+print 'At what age would you like to retire? '
 retirement = gets.chomp.to_i
 
 current_year = Time.now.year
