@@ -4,6 +4,16 @@ def real_palindrome?(input)
   actual == actual.reverse
 end
 
+# Alternative solution
+def real_palindrome?(string)
+  string = string.downcase.delete('^a-z0-9')
+  palindrome?(string)
+end
+
+def palindrome?(object)
+  object == object.reverse
+end
+
 # Test cases
 p real_palindrome?('madam') == true
 p real_palindrome?('Madam') == true           # (case does not matter)
