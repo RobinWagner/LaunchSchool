@@ -9,6 +9,11 @@ def xor?(value1, value2)
   false
 end
 
+# Alternative solution 2
+def xor?(value1, value2)
+  (value1 && !value2) || (value2 && !value1)
+end
+
 # Test cases
 p xor?(5.even?, 4.even?) == true
 p xor?(5.odd?, 4.odd?) == true
