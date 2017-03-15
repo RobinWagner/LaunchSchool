@@ -14,6 +14,11 @@ def leap_year?(year)
   end
 end
 
+# Alternative solution 2
+def leap_year?(year)
+  (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)
+end
+
 # Test cases
 p leap_year?(2016) == true
 p leap_year?(2015) == false
