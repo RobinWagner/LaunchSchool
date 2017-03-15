@@ -19,6 +19,12 @@ def short_long_short(string1, string2)
   end
 end
 
+# Alternative solution 2
+def short_long_short(string1, string2)
+  arr = [string1, string2].sort_by { |el| el.length }
+  arr.first + arr.last + arr.first
+end
+
 # Test cases
 p short_long_short('abc', 'defgh') == "abcdefghabc"
 p short_long_short('abcde', 'fgh') == "fghabcdefgh"
