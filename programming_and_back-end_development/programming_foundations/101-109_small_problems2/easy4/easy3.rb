@@ -1,6 +1,17 @@
 def leap_year?(year)
   puts "Enter a year greater than 0." if year <= 0
-  (year % 4 == 0) && (!(year % 100 == 0) || (year % 400 == 0)) 
+  (year % 4 == 0) && (!(year % 100 == 0) || (year % 400 == 0))
+end
+
+# Alternative solution 1
+def leap_year?(year)
+  if year % 400 == 0
+    true
+  elsif year % 100 == 0
+    false
+  else
+    year % 4 == 0
+  end
 end
 
 # Test cases
