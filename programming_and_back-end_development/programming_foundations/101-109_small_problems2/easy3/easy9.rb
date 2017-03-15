@@ -14,6 +14,12 @@ def palindrome?(object)
   object == object.reverse
 end
 
+# Alternative solution 2
+def real_palindrome?(string)
+  string = string.downcase.gsub(/[^a-z0-9]/i, '')
+  string == string.reverse
+end
+
 # Test cases
 p real_palindrome?('madam') == true
 p real_palindrome?('Madam') == true           # (case does not matter)
