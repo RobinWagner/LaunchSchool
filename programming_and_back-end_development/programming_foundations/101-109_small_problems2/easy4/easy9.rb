@@ -1,7 +1,5 @@
 DIGITS = (0..9).zip('0123456789'.chars).to_h
 
-require 'pry'
-
 def integer_to_string(integer)
   string_result = ''
   return '0' if integer == 0
