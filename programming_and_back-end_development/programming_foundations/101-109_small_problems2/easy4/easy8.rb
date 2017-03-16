@@ -21,9 +21,10 @@ end
 
 # Alternative solution
 def string_to_signed_integer(string)
+  integer_string = string_to_integer(string[1..-1])
   case string[0]
-  when '-' then -string_to_integer(string[1..-1])
-  when '+' then string_to_integer(string[1..-1])
+  when '-' then -integer_string
+  when '+' then integer_string
   else          string_to_integer(string)
   end
 end
