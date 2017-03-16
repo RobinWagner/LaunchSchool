@@ -18,10 +18,11 @@ end
 
 # Alternative solution
 def signed_integer_to_string(number)
+  digits = integer_to_string(number.abs)
   case number <=> 0
-  when -1 then "-#{integer_to_string(-number)}"
-  when +1 then "+#{integer_to_string(number)}"
-  else         integer_to_string(number)
+  when -1 then "-#{digits}"
+  when +1 then "+#{digits}"
+  else         digits
   end
 end
 
