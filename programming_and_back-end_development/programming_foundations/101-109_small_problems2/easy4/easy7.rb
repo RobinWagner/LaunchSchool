@@ -3,7 +3,7 @@ DIGITS = { '0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4,
 
 def string_to_integer(string)
   total = 0
-  string.reverse.chars.each_with_index { |char, index| total += STRING_TO_NUM[char] * 10**index }
+  string.reverse.chars.each_with_index { |char, index| total += DIGITS[char] * 10**index }
   total
 end
 
