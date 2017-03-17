@@ -13,6 +13,12 @@ def crunch(text)
   crunch_text
 end
 
+# Further exploration
+def crunch(str)
+  str.gsub!(/(.)(?=\1)/, '')
+  str
+end
+
 # Test cases:
 p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
 p crunch('4444abcabccba') == '4abcabcba'
