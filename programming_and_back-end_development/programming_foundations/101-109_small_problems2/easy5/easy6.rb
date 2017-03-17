@@ -6,6 +6,15 @@ def word_sizes(string)
   result.sort.to_h
 end
 
+# Alternative solution
+def word_sizes(words_string)
+  counts = Hash.new(0)
+  words_string.split.each do |word|
+    counts[word.size] += 1
+  end
+  counts
+end
+
 # Test cases
 p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
 p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 1, 7 => 2 }
