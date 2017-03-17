@@ -1,6 +1,6 @@
 def cleanup(string)
   string = string.split(' ').map do |word|
-    word.gsub(/[^a-z0-9]/i , ' ')
+    word.gsub(/[^a-z]/i , ' ')
   end.join(' ')
   string.gsub(/[\s]+/, ' ')
 end
