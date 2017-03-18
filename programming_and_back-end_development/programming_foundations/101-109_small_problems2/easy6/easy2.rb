@@ -9,6 +9,11 @@ def remove_vowels(string_array)
   result
 end
 
+# Alternative solution
+def remove_vowels(strings)
+  strings.map { |string| string.delete('aeiouAEIOU') }
+end
+
 # Test cases
 p remove_vowels(%w(abcdefghijklmnopqrstuvwxyz)) == %w(bcdfghjklmnpqrstvwxyz)
 p remove_vowels(%w(green YELLOW black white)) == %w(grn YLLW blck wht)
