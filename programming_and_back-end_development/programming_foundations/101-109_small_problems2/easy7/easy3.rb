@@ -15,6 +15,11 @@ def word_cap(words)
   words.split.map(&:capitalize).join(' ')
 end
 
+# Further exploration
+def word_cap(sentence)
+  sentence.split.map { |element| element[0].upcase + element[1..-1].downcase }.join(' ')
+end
+
 # Test cases
 p word_cap('four score and seven') == 'Four Score And Seven'
 p word_cap('the javaScript language') == 'The Javascript Language'
