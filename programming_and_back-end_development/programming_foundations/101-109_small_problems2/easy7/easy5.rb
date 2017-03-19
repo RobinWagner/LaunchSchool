@@ -25,6 +25,26 @@ def staggered_case(string)
   result
 end
 
+# Further exploration
+def staggered_case(string, b="upcase")
+  result = ''
+  need_upper = true
+  if b == 'upcase'
+    need_upper = true
+  else
+    need_upper = false
+  end
+  string.chars.each do |char|
+    if need_upper
+      result += char.upcase
+    else
+      result += char.downcase
+    end
+    need_upper = !need_upper
+  end
+  result
+end
+
 # Test cases
 p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
 p staggered_case('ALL_CAPS') == 'AlL_CaPs'
