@@ -2,5 +2,15 @@ def interleave(array1, array2)
   array1.zip(array2).flatten
 end
 
+# Alternative solution
+def interleave(array1, array2)
+  result = []
+  0.upto(array1.size - 1) do |n|
+    result << array1[n]
+    result << array2[n]
+  end
+  result
+end
+
 # Test case
 p interleave([1, 2, 3], ['a', 'b', 'c']) == [1, 'a', 2, 'b', 3, 'c']
