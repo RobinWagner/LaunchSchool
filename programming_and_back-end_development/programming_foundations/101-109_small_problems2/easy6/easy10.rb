@@ -16,6 +16,16 @@ def triangle(num)
   end
 end
 
+# Further exploration 1
+def triangle_upside_down(number)
+  number.downto(1) do |n|
+    puts (' ' * (number - n)) + ('*' * n)
+  end
+end
+
 # Test cases
 triangle(5)
 triangle(9)
+
+triangle_upside_down(5)
+triangle_upside_down(9)
