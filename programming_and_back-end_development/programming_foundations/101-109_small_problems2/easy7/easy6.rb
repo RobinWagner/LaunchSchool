@@ -36,7 +36,22 @@ def staggered_case(string)
   result
 end
 
+# Further exploration
+def staggered_case(string, numbers_ignore=true)
+  needs_down = false
+  result = string.upcase.chars.each do |char|
+    needs_down ? char.downcase! : char
+    if numbers_ignore
+      needs_down = !needs_down if ('A'..'z') === char
+    else
+      needs_down = !needs_down
+    end
+  end
+  result.join
+end
+
 # Test case
 p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
 p staggered_case('ALL CAPS') == 'AlL cApS'
 p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+p staggered_case('ignore 77 the 444 numbers', false) == 'IgNoRe 77 ThE 444 NuMbErS'
