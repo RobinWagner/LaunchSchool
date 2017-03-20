@@ -11,6 +11,11 @@ def reversed_number(number)
   reversed_string.to_i
 end
 
+# Further exploration
+def reversed_number(number)
+  number.to_s.chars.reverse.join.to_i
+end
+
 # Test cases
 p reversed_number(12345) == 54321
 p reversed_number(12213) == 31221
