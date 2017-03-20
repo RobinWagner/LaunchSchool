@@ -6,6 +6,11 @@ def repeater(string)
   result
 end
 
+# Alternative solution
+def repeater(string)
+  string.chars.map { |n| n * 2 }.join
+end
+
 # Test cases
 p repeater('Hello') == "HHeelllloo"
 p repeater("Good job!") == "GGoooodd  jjoobb!!"
