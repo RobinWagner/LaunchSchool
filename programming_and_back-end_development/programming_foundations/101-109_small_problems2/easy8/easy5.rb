@@ -32,14 +32,24 @@ def palindrome?(string)
   string == string.reverse && string.size > 1
 end
 
+# Further exploration
+def palindromes_nocase(string)
+  substrings(string).select do |s|
+    s.gsub!(/[^a-z]/i, '')
+    s.downcase == s.downcase.reverse && s.size > 1
+  end
+end
+
 # Test cases
-p palindromes('abcd') == []
-p palindromes('madam') == ['madam', 'ada']
-p palindromes('hello-madam-did-madam-goodbye') == [
-  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
-  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
-  '-madam-', 'madam', 'ada', 'oo'
-]
-p palindromes('knitting cassettes') == [
-  'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
-]
+# p palindromes('abcd') == []
+# p palindromes('madam') == ['madam', 'ada']
+# p palindromes('hello-madam-did-madam-goodbye') == [
+#   'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+#   'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+#   '-madam-', 'madam', 'ada', 'oo'
+# ]
+# p palindromes('knitting cassettes') == [
+#   'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
+# ]
+
+p palindromes_nocase('Mad7Am') == ['MadAm', 'adA']
