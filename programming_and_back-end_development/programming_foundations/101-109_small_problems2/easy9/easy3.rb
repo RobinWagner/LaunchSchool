@@ -12,6 +12,11 @@ def negative(number)
   number > 0 ? -number : number
 end
 
+# Alternative solution 3
+def negative(number)
+  -number.abs
+end
+
 # Test cases
 p negative(5) == -5
 p negative(-3) == -3
