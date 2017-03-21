@@ -6,6 +6,11 @@ def sequence(n)
   result
 end
 
+# Alternative solution
+def sequence(number)
+  (1..number).to_a
+end
+
 # Test cases
 p sequence(5) == [1, 2, 3, 4, 5]
 p sequence(3) == [1, 2, 3]
