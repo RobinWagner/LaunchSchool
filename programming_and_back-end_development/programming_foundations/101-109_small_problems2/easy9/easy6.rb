@@ -4,6 +4,11 @@ def word_lengths(string)
   result
 end
 
+# Alternative solution
+def word_lengths(string)
+  string.split.map { |word| "#{word} #{word.length}" }
+end
+
 # Test cases
 p word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
 
