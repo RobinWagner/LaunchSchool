@@ -7,6 +7,11 @@ def negative(number)
   number > 0 ? number * -1 : number
 end
 
+# Alternative solution 2
+def negative(number)
+  number > 0 ? -number : number
+end
+
 # Test cases
 p negative(5) == -5
 p negative(-3) == -3
