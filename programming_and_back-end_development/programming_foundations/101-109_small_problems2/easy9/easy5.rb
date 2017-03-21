@@ -3,6 +3,11 @@ def uppercase?(string)
   true
 end
 
+# Alternative solution
+def uppercase?(string)
+  string == string.upcase
+end
+
 # Test cases
 p uppercase?('t') == false
 p uppercase?('T') == true
