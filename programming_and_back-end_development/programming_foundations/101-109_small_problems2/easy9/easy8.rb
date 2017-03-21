@@ -6,6 +6,11 @@ def sequence(count, number)
   result
 end
 
+# Alternative solution
+def sequence(count, first)
+  (1..count).map { |idx| idx * first }
+end
+
 # Test cases
 p sequence(5, 1) == [1, 2, 3, 4, 5]
 p sequence(4, -7) == [-7, -14, -21, -28]
