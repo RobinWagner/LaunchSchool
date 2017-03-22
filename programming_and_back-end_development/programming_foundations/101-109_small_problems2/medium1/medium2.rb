@@ -1,6 +1,6 @@
-def rotate_rightmost_digits(number, last_digits)
-  unchanged_part = number.to_s[0, number.to_s.size - last_digits]
-  rotated_part = rotate_array(number.to_s.chars[-last_digits..-1]).join
+def rotate_rightmost_digits(number, n)
+  unchanged_part = number.to_s[0, number.to_s.size - n]
+  rotated_part = rotate_array(number.to_s.chars[-n, n]).join
   (unchanged_part + rotated_part).to_i
 end
 
