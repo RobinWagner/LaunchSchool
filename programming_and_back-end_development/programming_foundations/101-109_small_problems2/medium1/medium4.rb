@@ -1,14 +1,3 @@
-# Input: Integer
-# Output: Array or Hash
-
-# Algorithm:
-## Get a number n
-## Set up Hash
-## for 2..n do |i|
-### switch n[value] on / off if value % i == 0
-## end
-## return n
-
 require 'pry'
 
 def lights(n)
