@@ -1,5 +1,3 @@
-require 'pry'
-
 def lights(n)
   lights_on = (1..n).zip(['on'] * n).to_h
   (2..n).each do |i|
@@ -16,6 +14,27 @@ def lights(n)
   solution
 end
 
+# Alternative solution
+def toggle_on_or_off(lights)
+  1.upto(lights.size) do |round_number|
+    lights.each do |position, value|
+      if position % round_number == 0
+        value == "off" ? lights[position] = "on" : lights[position] = "off"
+      end
+    end
+  end
+end
+
+def on_lights(lights)
+  lights.keys.select { |key| lights[key] == "on" }
+end
+
+lights = Hash.new
+1.upto(1000) { |number| lights[number] = "off" }
+toggle_on_or_off(lights)
+p on_lights(lights)
+
 # Test cases
 p lights(5) == [1, 4]
 p lights(10) == [1, 4, 9]
+p lights(1000)
