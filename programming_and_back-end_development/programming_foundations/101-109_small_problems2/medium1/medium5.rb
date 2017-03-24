@@ -20,6 +20,28 @@ def diamond(grid_size)
   1.upto(max_distance)   { |distance| print_row(grid_size, distance) }
 end
 
+# Further exploration
+def diamond_empty(n)
+  0.upto(n / 2) do |m|
+    if m == 0
+      puts ' ' * ((n / 2) - m) + '*'
+    else
+      puts ' ' * ((n / 2) - m) + '*' + ' ' * (2 * m - 1) + '*'
+    end
+  end
+  1.upto(n / 2) do |m|
+    if m == n / 2
+      puts ' ' * m + '*'
+    else
+      puts ' ' * m + '*' + ' ' * (n - ((2 * m + 2))) + '*'
+    end
+    # puts ' ' * m + '*' * (n - (2 * m))
+  end
+end
+
+# Test cases
 diamond(1)
 diamond(3)
 diamond(9)
+
+diamond_empty(5)
