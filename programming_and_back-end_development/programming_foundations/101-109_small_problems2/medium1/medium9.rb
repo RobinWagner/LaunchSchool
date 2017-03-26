@@ -4,6 +4,12 @@ def fibonacci(n)
   fibonacci(n - 1) + fibonacci(n - 2)
 end
 
+# Alternative solution
+def fibonacci(nth)
+  return 1 if nth <= 2
+  fibonacci(nth - 1) + fibonacci(nth - 2)
+end
+
 # Test cases
 p fibonacci(1) == 1
 p fibonacci(2) == 1
