@@ -21,8 +21,13 @@ def fibonacci_last(nth)
   3.upto(nth) do
     last_2 = [last_2.last, (last_2.first + last_2.last) % 10]
   end
-  
+
   last_2.last
+end
+
+# Further optimized solution (last digits repeats every 60 Fibonacci numbers)
+def fibonacci_last(n)
+  (1...n % 60).reduce([1, 1]) { |(a, b), _| [b % 10, (a + b) % 10] }.first
 end
 
 # Test cases
