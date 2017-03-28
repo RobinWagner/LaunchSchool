@@ -24,6 +24,11 @@ def friday_13th?(year)
   (1..12).select { |month| Time.new(year, month, 13).friday? }.size
 end
 
+# Alternative solution 3
+def friday_13th?(year)
+  (1..12).count { |month| Time.new(year, month, 13).friday? }
+end
+
 # Test cases
 p friday_13th?(2015) == 3
 p friday_13th?(1986) == 1
