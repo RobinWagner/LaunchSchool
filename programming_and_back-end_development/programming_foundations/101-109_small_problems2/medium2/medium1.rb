@@ -12,6 +12,16 @@ def longest_sentence(text)
   puts "The longest sentence has #{max} words and is \"#{longest}\"."
 end
 
+# Alternative solution
+text = File.read('sample_text.txt')
+sentences = text.split(/\.|\?\!/)
+largest_sentence = sentences.max_by { |sentence| sentence.split.size }
+largest_sentence = largest_sentence.strip
+number_of_words = largest_sentence.split.size
+
+puts "#{largest_sentence}"
+puts "Containing #{number_of_words} words"
+
 longest_sentence('Four score and seven years ago our fathers brought forth
 on this continent a new nation, conceived in liberty, and
 dedicated to the proposition that all men are created
