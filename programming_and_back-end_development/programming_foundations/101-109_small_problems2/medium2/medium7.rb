@@ -19,6 +19,11 @@ def friday_13th?(year)
   unlucky_count
 end
 
+# Alternative solution 2
+def friday_13th?(year)
+  (1..12).select { |month| Time.new(year, month, 13).friday? }.size
+end
+
 # Test cases
 p friday_13th?(2015) == 3
 p friday_13th?(1986) == 1
