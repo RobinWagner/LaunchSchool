@@ -23,6 +23,7 @@ def featured(number)
 end
 
 # Test cases
+p featured(3) == 7
 p featured(12) == 21
 p featured(20) == 21
 p featured(21) == 35
