@@ -1,5 +1,5 @@
 def featured(start)
-  max_num = 2_000_000_000
+  max_num = 9_876_543_210
   return "No numbers matching requirements" if start > max_num
   (start + 1).upto(max_num) do |n|
     div_by_7 = n.to_s[0..-2].to_i - n.to_s[-1].to_i * 2
