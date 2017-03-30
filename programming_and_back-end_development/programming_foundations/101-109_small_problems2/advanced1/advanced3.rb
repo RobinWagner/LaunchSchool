@@ -1,8 +1,9 @@
 def transpose(matrix)
   new_matrix = []
-  new_matrix << [matrix[0][0], matrix[1][0], matrix[2][0]]
-  new_matrix << [matrix[0][1], matrix[1][1], matrix[2][1]]
-  new_matrix << [matrix[0][2], matrix[1][2], matrix[2][2]]
+  0.upto(2) do |i|
+    new_matrix << [matrix[0][i], matrix[1][i], matrix[2][i]]
+  end
+  new_matrix
 end
 
 # Test cases
