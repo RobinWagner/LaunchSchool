@@ -6,6 +6,16 @@ def transpose(matrix)
   new_matrix
 end
 
+# Alternative solution
+def transpose(matrix)
+  result = []
+  (0..2).each do |column_index|
+    new_row = (0..2).map { |row_index| matrix[row_index][column_index] }
+    result << new_row
+  end
+  result
+end
+
 # Test cases
 matrix = [
   [1, 5, 8],
