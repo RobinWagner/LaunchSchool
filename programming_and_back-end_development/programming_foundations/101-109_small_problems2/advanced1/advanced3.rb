@@ -16,6 +16,15 @@ def transpose(matrix)
   result
 end
 
+# Further exploration
+def transpose!(matrix)
+  matrix.each_with_index do |row, i|
+    i.times do |index|
+      row[index], matrix[index][i] = matrix[index][i], row[index]
+    end
+  end
+end
+
 # Test cases
 matrix = [
   [1, 5, 8],
@@ -27,3 +36,8 @@ new_matrix = transpose(matrix)
 
 p new_matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
 p matrix == [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
+
+new_matrix = transpose!(matrix)
+
+p new_matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
+p matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
