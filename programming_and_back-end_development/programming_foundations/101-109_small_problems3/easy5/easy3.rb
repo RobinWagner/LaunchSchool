@@ -1,4 +1,9 @@
+MINUTES_PER_HOUR = 60
+HOURS_PER_DAY = 24
+MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
+
 def after_midnight(time)
+
 end
 
 # Test cases
