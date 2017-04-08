@@ -16,6 +16,18 @@ def before_midnight(time)
   minutes = MINUTES_PER_DAY - (time_array[1].to_i + hours * MINUTES_PER_HOUR)
 end
 
+# Alternative solution
+def after_midnight(time_str)
+  hours, minutes = time_str.split(':').map(&:to_i)
+  (hours * MINUTES_PER_HOUR + minutes) % MINUTES_PER_DAY
+end
+
+def before_midnight(time_str)
+  delta_minutes = MINUTES_PER_DAY - after_midnight(time_str)
+  delta_minutes = 0 if delta_minutes == MINUTES_PER_DAY
+  delta_minutes
+end
+
 # Test cases
 p after_midnight('00:00') == 0
 p before_midnight('00:00') == 0
