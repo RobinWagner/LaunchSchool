@@ -1,5 +1,7 @@
+DEGREE = "\xC2\xB0"
 MINUTES_IN_DEGREE = 60
 SECONDS_IN_MINUTE = 60
+SECONDS_PER_DEGREE = MINUTES_IN_DEGREE * SECONDS_IN_MINUTE
 
 def dms(angle)
   degrees = (angle % 360).to_i
@@ -7,6 +9,14 @@ def dms(angle)
   seconds = (((angle - degrees) * MINUTES_IN_DEGREE) -
             ((angle - degrees) * MINUTES_IN_DEGREE).to_i) * SECONDS_IN_MINUTE
   "#{sprintf("%d", degrees)}°#{sprintf("%02d", minutes)}'#{sprintf("%02d", seconds)}\""
+end
+
+# Alternative solution
+def dms(degrees_float)
+  total_seconds = (degrees_float * SECONDS_PER_DEGREE).round
+  degrees, remaining_seconds = total_seconds.divmod(SECONDS_PER_DEGREE)
+  minutes, seconds = remaining_seconds.divmod(SECONDS_IN_MINUTE)
+  format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
 end
 
 # Test cases
