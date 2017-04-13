@@ -8,6 +8,15 @@ def staggered_case(string)
   new_string_arr.join
 end
 
+# Alternative (mutating) solution
+def staggered_case(string)
+  index = 0
+  string.chars.each do |n|
+    index.even? ? n.upcase! : n.downcase!
+    index += 1
+  end.join
+end
+
 # Test cases
 p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
 p staggered_case('ALL_CAPS') == 'AlL_CaPs'
