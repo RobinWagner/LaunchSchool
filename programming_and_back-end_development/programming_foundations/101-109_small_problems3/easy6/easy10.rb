@@ -16,6 +16,16 @@ def triangle(num)
   end
 end
 
+# Further exploration
+def flipped_triangle(n)
+  n.downto(0) do |i|
+    puts (' ' * (n - i)) + ('*' * i)
+  end
+end
+
 # Test cases
 triangle(5)
 triangle(9)
+
+flipped_triangle(5)
+flipped_triangle(9)
