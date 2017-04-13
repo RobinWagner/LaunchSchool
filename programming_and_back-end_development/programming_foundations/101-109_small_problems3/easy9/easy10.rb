@@ -1,8 +1,6 @@
 def buy_fruit(list)
   new_array = []
-  list.each do |item|
-    item[1].times { new_array << item[0] }
-  end
+  list.each { |item| item[1].times { new_array << item[0] } }
   new_array
 end
 
