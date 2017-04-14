@@ -23,9 +23,3 @@ p max_rotation(3) == 3
 p max_rotation(35) == 53
 p max_rotation(105) == 15 # the leading zero gets dropped
 p max_rotation(8_703_529_146) == 7_321_609_845
-
-# 735291 => number
-# 352917 => number.to_s[0,0] + rotate_rightmost_digits(number.to_s[0..-1], number.to_s[0..-1].size)
-# 3 29175 => number.to_s[0,1] + rotate_rightmost_digits(number.to_s[1..-1], number.to_s[1..-1].size)
-# 32 1759 => number.to_s[0,2] + rotate_rightmost_digits(number.to_s[2..-1], number.to_s[2..-1].size)
-# 321 597 => number.to_s[0,3] + rotate_rightmost_digits(number.to_s[3..-1], number.to_s[3..-1].size)
