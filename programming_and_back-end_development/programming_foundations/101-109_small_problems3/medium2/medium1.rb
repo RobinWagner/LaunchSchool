@@ -1,5 +1,5 @@
 def longest_sentence(text)
-  text.split(/[.!?]/).max
+  text.split(/(\.|!|\?)/).max_by { |sentence| sentence.split.size }
 end
 
 text = "Four score and seven years ago our fathers brought forth
