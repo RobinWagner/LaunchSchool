@@ -2,6 +2,13 @@ def longest_sentence(text)
   text.split(/(\.|!|\?)/).max_by { |sentence| sentence.split.size }
 end
 
+# Alternative solution
+def longest_sentence(text)
+  sentences = text.split(/\.|\?|!/)
+  largest_sentence = sentences.max_by { |sentence| sentence.split.size }
+  largest_sentence = largest_sentence.strip
+end
+
 text = "Four score and seven years ago our fathers brought forth
 on this continent a new nation, conceived in liberty, and
 dedicated to the proposition that all men are created
