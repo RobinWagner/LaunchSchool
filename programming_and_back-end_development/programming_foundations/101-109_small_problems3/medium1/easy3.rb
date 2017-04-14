@@ -13,6 +13,21 @@ def rotate_rightmost_digits(number, n)
   all_digits.join
 end
 
+# Alternative solution
+def max_rotation(number)
+  number_digits = number.to_s.size
+  number_digits.downto(2) do |n|
+    number = rotate_rightmost_digits(number, n)
+  end
+  number
+end
+
+def rotate_rightmost_digits(number, n)
+  all_digits = number.to_s.chars
+  all_digits[-n..-1] = rotate_array(all_digits[-n..-1])
+  all_digits.join.to_i
+end
+
 def rotate_array(array)
   array[1..-1] + [array[0]]
 end
