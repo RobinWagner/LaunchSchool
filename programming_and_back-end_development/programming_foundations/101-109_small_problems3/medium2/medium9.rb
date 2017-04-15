@@ -1,3 +1,4 @@
+# Own solution
 def bubble_sort!(array)
   (array.size - 1).times do
     (0..(array.size - 2)).each do |n|
