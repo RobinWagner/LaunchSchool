@@ -6,6 +6,11 @@ def factorial(n)
   total
 end
 
+# Alternative solution
+def factorial(n)
+  (1..n).reduce(1) { |total, n| total *= n }
+end
+
 # Test cases
 p factorial(0) == 1
 p factorial(1) == 1
