@@ -1,13 +1,10 @@
 def most_common_letter(string)
   hash = {}
   string.chars.each do |letter|
-    if hash[letter]
-      hash[letter] += 1
-    else
-      hash[letter] = 1
-    end
+    hash[letter] ? hash[letter] += 1 : hash[letter] = 1
   end
-  [hash.key(hash.values.max), hash.values.max]
+  most_common_occurence_letter = hash.values.max
+  [hash.key(most_common_occurence_letter), most_common_occurence_letter]
 end
 
 # Test cases
