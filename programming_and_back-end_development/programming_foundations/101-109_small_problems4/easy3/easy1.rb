@@ -1,25 +1,15 @@
 numbers = []
 
 puts "==> Enter the 1st number: "
-num1 = gets.chomp.to_i
-numbers << num1
-
+numbers << gets.chomp.to_i
 puts "==> Enter 2nd number: "
-num2 = gets.chomp.to_i
-numbers << num2
-
+numbers << gets.chomp.to_i
 puts "==> Enter 3rd number: "
-num3 = gets.chomp.to_i
-numbers << num3
-
+numbers << gets.chomp.to_i
 puts "==> Enter 4th number: "
-num4 = gets.chomp.to_i
-numbers << num4
-
+numbers << gets.chomp.to_i
 puts "==> Enter 5th number: "
-num5 = gets.chomp.to_i
-numbers << num5
-
+numbers << gets.chomp.to_i
 puts "==> Enter the last number: "
 last_num = gets.chomp.to_i
 
