@@ -1,5 +1,14 @@
+# def square(num)
+#   num**2
+# end
+
+# Alternative solution
 def square(num)
-  num**2
+  multiply(num, num)
+end
+
+def multiply(num1, num2)
+  num1 * num2
 end
 
 # Test case
