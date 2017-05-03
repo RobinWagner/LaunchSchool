@@ -1,6 +1,6 @@
 def rotate_array(array)
   new_array = []
-  array.each_with_index do |element, idx|
+  0.upto(array.size-1).each do |idx|
     new_array << array[idx] if idx > 0
   end
   new_array << array[0]
