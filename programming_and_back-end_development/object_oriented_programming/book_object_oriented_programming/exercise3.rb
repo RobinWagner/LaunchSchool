@@ -71,7 +71,8 @@ class MyTruck < Vehicle
   end
 end
 
-car = MyCar.new(2010, 'Ford Focus', 'silver')
-truck = MyTruck.new(2010, 'Ford Tundra', 'white')
-
-p truck.can_tow?(1900)
+puts MyCar.ancestors
+puts '-------'
+puts MyTruck.ancestors
+puts '-------'
+puts Vehicle.ancestors
