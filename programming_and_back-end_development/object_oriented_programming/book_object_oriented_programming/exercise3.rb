@@ -1,5 +1,11 @@
 # my_car.rb
 
+module Towable
+  def can_tow?(pounds)
+    pounds < 2000 ? true : false
+  end
+end
+
 class Vehicle
   @@number_of_vehicles = 0
 
@@ -56,6 +62,8 @@ class MyCar < Vehicle
 end
 
 class MyTruck < Vehicle
+  include Towable
+
   NUMBER_OF_DOORS = 2
 
   def to_s
@@ -66,4 +74,4 @@ end
 car = MyCar.new(2010, 'Ford Focus', 'silver')
 truck = MyTruck.new(2010, 'Ford Tundra', 'white')
 
-Vehicle.number_of_vehicles
+p truck.can_tow?(1900)
