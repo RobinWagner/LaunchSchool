@@ -4,6 +4,10 @@ class MyCar
   attr_accessor :color
   attr_reader :year
 
+  def self.gas_mileage(gallons, miles)
+    puts "#{miles / gallons} miles per gallon of gas"
+  end
+
   def initialize(year, model, color)
     @year = year
     @model = model
@@ -36,16 +40,18 @@ class MyCar
   end
 end
 
-lumina = MyCar.new(1997, 'chevy lumnia', 'white')
-lumina.speed_up(20)
-lumina.current_speed
-lumina.speed_up(20)
-lumina.current_speed
-lumina.brake(20)
-lumina.current_speed
-lumina.brake(20)
-lumina.current_speed
-lumina.shut_down
-lumina.current_speed
+MyCar.gas_mileage(13, 351)
 
-lumina.spray_paint('red')
+# lumina = MyCar.new(1997, 'chevy lumnia', 'white')
+# lumina.speed_up(20)
+# lumina.current_speed
+# lumina.speed_up(20)
+# lumina.current_speed
+# lumina.brake(20)
+# lumina.current_speed
+# lumina.brake(20)
+# lumina.current_speed
+# lumina.shut_down
+# lumina.current_speed
+#
+# lumina.spray_paint('red')
