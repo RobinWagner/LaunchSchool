@@ -29,6 +29,11 @@ class MyCar
     @current_speed = 0
     puts "Let's park this bad boy!"
   end
+
+  def spray_paint(color)
+    self.color = color
+    puts "Your new #{color} paint job looks great!"
+  end
 end
 
 lumina = MyCar.new(1997, 'chevy lumnia', 'white')
@@ -43,7 +48,4 @@ lumina.current_speed
 lumina.shut_down
 lumina.current_speed
 
-puts lumina.year
-puts lumina.color
-lumina.color = 'blue'
-puts lumina.color
+lumina.spray_paint('red')
