@@ -2,7 +2,7 @@
 
 class MyCar
   attr_accessor :color
-  attr_reader :year
+  attr_reader :year, :model
 
   def self.gas_mileage(gallons, miles)
     puts "#{miles / gallons} miles per gallon of gas"
@@ -38,9 +38,15 @@ class MyCar
     self.color = color
     puts "Your new #{color} paint job looks great!"
   end
+
+  def to_s
+    "My car is a #{color}, #{year}, #{model}!"
+  end
 end
 
-MyCar.gas_mileage(13, 351)
+# MyCar.gas_mileage(13, 351)
+my_car = MyCar.new(2010, 'Ford Focus', 'silver')
+puts my_car
 
 # lumina = MyCar.new(1997, 'chevy lumnia', 'white')
 # lumina.speed_up(20)
