@@ -1,6 +1,8 @@
 # my_car.rb
 
-class MyCar
+class Vehicle
+  @@number_of_vehicles = 0
+
   attr_accessor :color
   attr_reader :year, :model
 
@@ -8,11 +10,16 @@ class MyCar
     puts "#{miles / gallons} miles per gallon of gas"
   end
 
+  def self.number_of_vehicles
+    puts "This program has created #{@@number_of_vehicles} vehicles"
+  end
+
   def initialize(year, model, color)
     @year = year
     @model = model
     @color = color
     @current_speed = 0
+    @@number_of_vehicles += 1
   end
 
   def speed_up(number)
@@ -38,26 +45,25 @@ class MyCar
     self.color = color
     puts "Your new #{color} paint job looks great!"
   end
+end
+
+class MyCar < Vehicle
+  NUMBER_OF_DOORS = 4
 
   def to_s
     "My car is a #{color}, #{year}, #{model}!"
   end
 end
 
-# MyCar.gas_mileage(13, 351)
-my_car = MyCar.new(2010, 'Ford Focus', 'silver')
-puts my_car
+class MyTruck < Vehicle
+  NUMBER_OF_DOORS = 2
 
-# lumina = MyCar.new(1997, 'chevy lumnia', 'white')
-# lumina.speed_up(20)
-# lumina.current_speed
-# lumina.speed_up(20)
-# lumina.current_speed
-# lumina.brake(20)
-# lumina.current_speed
-# lumina.brake(20)
-# lumina.current_speed
-# lumina.shut_down
-# lumina.current_speed
-#
-# lumina.spray_paint('red')
+  def to_s
+    "My truck is a #{color}, #{year}, #{model}!"
+  end
+end
+
+car = MyCar.new(2010, 'Ford Focus', 'silver')
+truck = MyTruck.new(2010, 'Ford Tundra', 'white')
+
+Vehicle.number_of_vehicles
