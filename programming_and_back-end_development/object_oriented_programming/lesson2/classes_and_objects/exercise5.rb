@@ -27,4 +27,5 @@ class Person
 end
 
 bob = Person.new("Robert Smith")
+
 puts "The person's name is: #{bob}"
