@@ -135,4 +135,5 @@ class RPSGame
   end
 end
 
+# Launch game
 RPSGame.new.play
