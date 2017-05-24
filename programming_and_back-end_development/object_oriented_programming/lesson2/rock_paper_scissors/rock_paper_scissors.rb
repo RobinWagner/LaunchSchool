@@ -76,6 +76,12 @@ class Computer < Player
   end
 end
 
+class Score
+  def initialize
+    @score = score
+  end
+end
+
 # Game Orchestration Engine
 class RPSGame
   attr_accessor :human, :computer
