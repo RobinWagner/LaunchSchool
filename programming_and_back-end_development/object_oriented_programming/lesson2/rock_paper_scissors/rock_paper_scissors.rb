@@ -76,6 +76,7 @@ class Computer < Player
   end
 end
 
+# new Score class
 class Score
   def initialize
     @score = score
