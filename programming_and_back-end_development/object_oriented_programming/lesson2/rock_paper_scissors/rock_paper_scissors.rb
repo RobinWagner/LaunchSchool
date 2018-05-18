@@ -64,6 +64,7 @@ class Human < Player
     end
     self.move = Move.new(choice)
   end
+
 end
 
 class Computer < Player
@@ -78,18 +79,24 @@ end
 
 # new Score class
 class Score
+  WINNING_SCORE = 10
+
+  attr_accessor :human_score, :computer_score
+
   def initialize
-    @score = score
+    @human_score = 0
+    @computer_score = 0
   end
 end
 
 # Game Orchestration Engine
 class RPSGame
-  attr_accessor :human, :computer
+  attr_accessor :human, :computer, :score
 
   def initialize
     @human = Human.new
     @computer = Computer.new
+    @score = Score.new
   end
 
   def display_welcome_message
@@ -107,11 +114,28 @@ class RPSGame
 
   def display_winner
     if human.move > computer.move
-      puts "#{human.name} won!"
+      score.human_score += 1
+      puts "#{human.name} won the round and has #{score.human_score} points!"
+      puts "#{computer.name} has #{score.computer_score} points."
     elsif human.move < computer.move
-      puts "#{computer.name} won!"
+      score.computer_score += 1
+      puts "#{computer.name} won the round and has #{score.computer_score} " +
+        "points!"
+      puts "#{human.name} has #{score.human_score} points."
     else
       puts "It's a tie!"
+      puts "#{human.name} has #{score.human_score} points."
+      puts "#{computer.name} has #{score.computer_score} points."
+    end
+  end
+
+  def game_won?
+    if score.human_score >= Score::WINNING_SCORE
+      puts "#{human.name} has won #{Score::WINNING_SCORE} rounds and wins the game."
+      return true
+    elsif score.human_score >= Score::WINNING_SCORE
+      puts "#{computer.name} has won #{Score::WINNING_SCORE} rounds and wins the game."
+      return true
     end
   end
 
@@ -136,7 +160,7 @@ class RPSGame
       computer.choose
       display_moves
       display_winner
-      break unless play_again?
+      break unless game_won? || play_again?
     end
     display_goodbye_message
   end
