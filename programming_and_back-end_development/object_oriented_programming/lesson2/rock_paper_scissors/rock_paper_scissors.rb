@@ -1,48 +1,83 @@
 class Move
-  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+
+  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock'].freeze
 
   def initialize(value)
     @value = value
   end
 
-  def scissors?
-    @value == 'scissors'
+  def to_s
+    @value
+  end
+end
+
+class Rock < Move
+  def initialize
+    @name = 'Rock'
   end
 
-  def rock?
-    @value == 'rock'
-  end
-
-  def paper?
-    @value == 'paper'
-  end
-
-  def lizard?
-    @value == 'lizard'
-  end
-
-  def spock?
-    @value == 'spock'
-  end
-
-  def >(other_move)
-    (rock? && (other_move.scissors? || other_move.lizard?)) ||
-      (paper? && (other_move.rock? || other_move.spock?)) ||
-      (scissors? && (other_move.paper? || other_move.lizard?)) ||
-      (lizard? && (other_move.paper? || other_move.spock?)) ||
-      (spock? && (other_move.scissors? || other_move.rock?))
-  end
-
-  def <(other_move)
-    (rock? && (other_move.paper? || other_move.spock?)) ||
-      (paper? && (other_move.scissors? || other_move.lizard?)) ||
-      (scissors? && (other_move.rock? || other_move.spock?)) ||
-      (lizard? && (other_move.rock? || other_move.scissors?)) ||
-      (spock? && (other_move.paper? || other_move.lizard?))
+  def >(other_value)
+    other_value.class == Scissors || other_value.class == Lizard
   end
 
   def to_s
-    @value
+    'Rock'
+  end
+end
+
+class Paper < Move
+  def initialize
+    @name = 'Paper'
+  end
+
+  def >(other_value)
+    other_value.class == Rock || other_value.class == Spock
+  end
+
+  def to_s
+    'Paper'
+  end
+end
+
+class Scissors < Move
+  def initialize
+    @name = 'Scissors'
+  end
+
+  def >(other_value)
+    other_value.class == Paper || other_value.class == Lizard
+  end
+
+  def to_s
+    'Scissors'
+  end
+end
+
+class Lizard < Move
+  def initialize
+    @name = 'Lizard'
+  end
+
+  def >(other_value)
+    other_value.class == Paper || other_value.class == Spock
+  end
+
+  def to_s
+    'Lizard'
+  end
+end
+
+class Spock < Move
+  def initialize
+    @name = 'Spock'
+  end
+
+  def >(other_value)
+    other_value.class == Rock || other_value.class == Scissors
+  end
+
+  def to_s
+    'Spock'
   end
 end
 
@@ -51,6 +86,21 @@ class Player
 
   def initialize
     set_name
+  end
+
+  def select_move(choice)
+    case choice
+    when 'rock'
+      self.move = Rock.new
+    when 'paper'
+      self.move = Paper.new
+    when 'scissors'
+      self.move = Scissors.new
+    when 'lizard'
+      self.move = Lizard.new
+    when 'spock'
+      self.move = Spock.new
+    end
   end
 end
 
@@ -81,9 +131,8 @@ class Human < Player
       break if Move::VALUES.include? choice
       puts "Sorry, invalid choice."
     end
-    self.move = Move.new(choice)
+    select_move(choice)
   end
-
 end
 
 class Computer < Player
@@ -99,7 +148,8 @@ class Computer < Player
   end
 
   def choose
-    self.move = Move.new(Move::VALUES.sample)
+    choice =  Move::VALUES.sample
+    select_move(choice)
   end
 end
 
@@ -132,7 +182,7 @@ class RPSGame
       human.score += 1
       puts "#{human.name} won the round and has #{human.score} points!"
       puts "#{computer.name} has #{computer.score} points."
-    elsif human.move < computer.move
+    elsif computer.move > human.move
       computer.score += 1
       puts "#{computer.name} won the round and has #{computer.score} " +
         "points!"
