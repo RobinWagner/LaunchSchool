@@ -107,6 +107,12 @@ end
 class Human < Player
   attr_accessor :score
 
+  @@move_history = []
+
+  def self.move_history
+    @@move_history
+  end
+
   def initialize
     @score = 0
     set_name
@@ -131,12 +137,19 @@ class Human < Player
       break if Move::VALUES.include? choice
       puts "Sorry, invalid choice."
     end
+    @@move_history << select_move(choice)
     select_move(choice)
   end
 end
 
 class Computer < Player
   attr_accessor :score
+
+  @@move_history = []
+
+  def self.move_history
+    @@move_history
+  end
 
   def initialize
     @score = 0
@@ -149,6 +162,7 @@ class Computer < Player
 
   def choose
     choice =  Move::VALUES.sample
+    @@move_history << select_move(choice)
     select_move(choice)
   end
 end
@@ -157,7 +171,7 @@ end
 class RPSGame
   attr_accessor :human, :computer
 
-  WINNING_SCORE = 10
+  WINNING_SCORE = 2
 
   def initialize
     @human = Human.new
@@ -194,6 +208,21 @@ class RPSGame
     end
   end
 
+  def display_move_history
+    loop do
+      puts "Would you like to see the history of moves? (y/n)"
+      answer = gets.chomp
+      break if ['y', 'n'].include? answer.downcase
+      puts "Sorry, must be y or n."
+    end
+
+    for n in 0...Human.move_history.length do
+      puts "#{human.name} chose #{Human.move_history[n]}."
+      puts "#{computer.name} chose #{Computer.move_history[n]}."
+    end
+
+  end
+
   def game_won?
     if human.score >= RPSGame::WINNING_SCORE
       puts "#{human.name} has won #{RPSGame::WINNING_SCORE} rounds and wins the game."
@@ -214,7 +243,11 @@ class RPSGame
     end
 
     return false if answer.downcase == 'n'
-    return true if answer.downcase == 'y'
+    if answer.downcase == 'y'
+      human.score = 0
+      computer.score = 0
+      return true
+    end
   end
 
   def play
@@ -228,6 +261,7 @@ class RPSGame
       break unless !game_won? || play_again?
     end
     display_goodbye_message
+    display_move_history
   end
 end
 
