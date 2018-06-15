@@ -86,6 +86,7 @@ class Player
 
   def initialize
     set_name
+    @score = 0
   end
 
   def select_move(choice)
@@ -105,17 +106,11 @@ class Player
 end
 
 class Human < Player
-  attr_accessor :score
-
-  @@move_history = []
-
-  def self.move_history
-    @@move_history
-  end
+  attr_accessor :score, :move_history
 
   def initialize
-    @score = 0
-    set_name
+    super
+    @move_history = []
   end
 
   def set_name
@@ -137,23 +132,17 @@ class Human < Player
       break if Move::VALUES.include? choice
       puts "Sorry, invalid choice."
     end
-    @@move_history << select_move(choice)
+    move_history << select_move(choice)
     select_move(choice)
   end
 end
 
 class Computer < Player
-  attr_accessor :score
-
-  @@move_history = []
-
-  def self.move_history
-    @@move_history
-  end
+  attr_accessor :score, :move_history
 
   def initialize
-    @score = 0
-    set_name
+    super
+    @move_history = []
   end
 
   def set_name
@@ -162,7 +151,7 @@ class Computer < Player
 
   def choose
     choice =  Move::VALUES.sample
-    @@move_history << select_move(choice)
+    move_history << select_move(choice)
     select_move(choice)
   end
 end
@@ -216,9 +205,9 @@ class RPSGame
       puts "Sorry, must be y or n."
     end
 
-    for n in 0...Human.move_history.length do
-      puts "#{human.name} chose #{Human.move_history[n]}."
-      puts "#{computer.name} chose #{Computer.move_history[n]}."
+    for n in 0...human.move_history.length do
+      puts "#{human.name} chose #{human.move_history[n]}."
+      puts "#{computer.name} chose #{computer.move_history[n]}."
     end
 
   end
